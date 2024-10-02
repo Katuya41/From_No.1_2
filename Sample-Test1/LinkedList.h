@@ -347,24 +347,7 @@ public:
     }
 
     ////先頭コンストイテレータ取得
-    //const LinkedList::Iterator* GetConstBegin() const {
-    //    if (Head != NULL)
-    //    {
-    //        Iterator* it = new LinkedList::Iterator();
-    //        it->Node = Head;
-    //        return it;
-    //    }
-    //    else
-    //    {
-    //        Iterator* it = new LinkedList::Iterator();
-    //        NODE* Node;
-    //        Node = new NODE();
-    //        it->Node = Node;
-    //        return it;
-    //    }
-    //}
-
-    const LinkedList::ConstIterator* GetConstBegin()const {
+     LinkedList::ConstIterator* GetConstBegin()const {
         if (Head != NULL)
         {
             ConstIterator* it = new LinkedList::ConstIterator();
@@ -455,16 +438,16 @@ public:
     }
 
     //末尾コンストイテレータ取得
-    const LinkedList::Iterator* GetConstEnd() const {
+    LinkedList::ConstIterator* GetConstEnd() const {
         if (Tail != NULL)
         {
-            Iterator* it = new LinkedList::Iterator();
+            ConstIterator* it = new LinkedList::ConstIterator();
             it->Node = Tail;
             return it;
         }
         else
         {
-            Iterator* it = new LinkedList::Iterator();
+            ConstIterator* it = new LinkedList::ConstIterator();
             NODE* Node;
             Node = new NODE();
             it->Node = Node;
@@ -592,9 +575,17 @@ public:
         // コピーコンストラクタ
        void  CopyConst(NODE* _node) { Node = _node; }
        //代入
-        LinkedList::ConstIterator* operator=(const Iterator* _it) {
+        const LinkedList::ConstIterator* operator =(const Iterator* _it) {
             if (this != _it) {
-                LinkedList::ConstIterator* NewConst;
+                LinkedList::ConstIterator* NewConst = new LinkedList::ConstIterator();
+                NewConst->Node = _it->Node;
+                return NewConst;
+            }
+        }
+
+         LinkedList::ConstIterator* operator =(Iterator* _it) {
+            if (this != _it) {
+                LinkedList::ConstIterator* NewConst = new LinkedList::ConstIterator();
                 NewConst->Node = _it->Node;
                 return NewConst;
             }

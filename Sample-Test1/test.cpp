@@ -935,12 +935,14 @@ namespace ex01_DataStructure
 		{
 			LinkedList List;
 			List.InsertFront(10);
+			List.InsertLast(20);
 			LinkedList::Iterator* it = new LinkedList::Iterator();
-			it = List.GetBegin();
 			LinkedList::ConstIterator* constit = new LinkedList::ConstIterator();
-			constit->Node = it->Node;
-			int num = constit->GetNodeData();
-			EXPECT_EQ(10, num);
+			it = List.GetBegin();
+			constit = List.GetConstEnd();
+			it = constit;
+			int num = it->GetNodeData();
+			EXPECT_EQ(20, num);
 		}
 
 		/**********************************************************************************//**
