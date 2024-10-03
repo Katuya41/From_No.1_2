@@ -10,10 +10,11 @@
  */
 class LinkedList
 {
-private:
+public:
     class Iterator;
     class ConstIterator;
 
+private:
     /**
      *データを入れる構造体です。
      *
@@ -352,9 +353,6 @@ public:
         }
     }
 
-#pragma warning(push)
-#pragma warning(disable : 4240)
-
     //コンストイテレータクラス
     class ConstIterator
     {
@@ -552,5 +550,4 @@ public:
     private:
 
     };
-#pragma warning(pop)
 };
