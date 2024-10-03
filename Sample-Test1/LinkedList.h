@@ -18,11 +18,13 @@ private:
     /**
      *データを入れる構造体です。
      *
-     * @param Num 数字
+     * @param Score 数字
+     * @param Name  名前
      */
     struct DATA
     {
-        int Num = NULL;
+        int Score = NULL;
+        std::string Name;
     };
 
     /**
@@ -101,12 +103,13 @@ public:
     * @param _score  受け取ったデータのスコア
     * @param _name   受け取ったデータの名前
     */
-    void InsertFront(int _num)
+    void InsertFront(int _score,std::string _name)
     {
         //新しいノード作成
         NODE* NewNode;
         DATA Data;
-        Data.Num = _num;
+        Data.Score = _score;
+        Data.Name = _name;
         NewNode = new NODE;
         NewNode->Data = Data;
         if (Head == NULL)
@@ -154,12 +157,13 @@ public:
     * @param _score  受け取ったデータのスコア
     * @param _name   受け取ったデータの名前
     */
-    void InsertLast(int _num)
+    void InsertLast(int _score,std::string _name)
     {
         //新しいノード作成
         NODE* NewNode;
         DATA Data;
-        Data.Num = _num;
+        Data.Score = _score;
+        Data.Name = _name;
         NewNode = new NODE;
         NewNode->Data = Data;
         if (Tail == NULL)
@@ -185,7 +189,7 @@ public:
     * @param _score  受け取ったデータのスコア
     * @param _name   受け取ったデータの名前
     */
-    void Insert(Iterator _it, int _num)
+    void Insert(Iterator _it, int _score,std::string _name)
     {
         //イテレータが空じゃないか確認
         if ((*_it) != nullptr)
@@ -223,7 +227,7 @@ public:
         }
     }
 
-    bool InsertBool(Iterator _it, int _num)
+    bool InsertBool(Iterator _it, int _Score,std::string _name)
     {
         //イテレータが空じゃないか確認
         if ((*_it) != nullptr)
@@ -585,11 +589,9 @@ public:
          * 現在のイテレータのノードのデータを返す関数です。
          * @return イテレータのノードの中身
         */
-        int GetNodeData()
+        DATA GetNodeData()
         {
-            DATA Data;
-            Data.Num = Node->Data.Num;
-            return Node->Data.Num;
+            return Node->Data;
         }
 
         bool GetNodeDataBool()
@@ -609,9 +611,10 @@ public:
          * @param _score   変更後のスコア
          * @param _name    変更後の名前
         */
-        void ChengeData(int _num)
+        void ChengeData(int _score,std::string _name)
         {
-            Node->Data.Num = _num;
+            Node->Data.Score = _score;
+            Node->Data.Name = _name;
         }
 
         /**

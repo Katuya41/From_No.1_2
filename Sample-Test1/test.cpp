@@ -38,7 +38,7 @@ namespace ex01_DataStructure
 		TEST(GetDataNumTest, TestGetDataNumAfterPush)
 		{
 			LinkedList list;
-			list.InsertLast(1);
+			list.InsertLast(1,"Test");
 			EXPECT_EQ(1, list.GetDataNum());
 		}
 
@@ -68,7 +68,7 @@ namespace ex01_DataStructure
 		TEST(GetDataNumTest, TestGetDataNumInsertList)
 		{
 			LinkedList list;
-			list.InsertFront(10);
+			list.InsertFront(10,"Test");
 			EXPECT_EQ(1, list.GetDataNum());
 		}
 
@@ -98,7 +98,7 @@ namespace ex01_DataStructure
 		{
 			LinkedList list;
 			LinkedList::Iterator Testit;
-			list.InsertFront(1);
+			list.InsertFront(1, "Test");
 			Testit = list.GetBegin();
 			list.Delete(Testit);
 			EXPECT_EQ(0, list.GetDataNum());
@@ -150,13 +150,9 @@ namespace ex01_DataStructure
 		{
 			LinkedList list;
 			LinkedList::Iterator it;
-			it = list.GetBegin();
-			list.InsertFront(10);
-			list.InsertLast(20);
-			it = list.GetBegin();
-			EXPECT_EQ(10, it.GetNodeData());
+			list.InsertLast(10, "Test");
 			it = list.GetEnd();
-			EXPECT_EQ(20, it.GetNodeData());
+			EXPECT_EQ(it, list.GetEnd());
 		}
 
 		/**********************************************************************************//**
@@ -170,10 +166,10 @@ namespace ex01_DataStructure
 		{
 			LinkedList list;
 			LinkedList::Iterator it;
-			list.InsertFront(10);
-			list.InsertLast(20);
+			list.InsertFront(10, "Test");
+			list.InsertLast(20, "Test");
 			it = list.GetBegin();
-			EXPECT_EQ(true, list.CheckHead(it));
+			EXPECT_EQ(it, list.GetBegin());
 		}
 
 		/**********************************************************************************//**
@@ -187,11 +183,11 @@ namespace ex01_DataStructure
 		{
 			LinkedList list;
 			LinkedList::Iterator it;
-			list.InsertFront(10);
-			list.InsertLast(20);
-			list.InsertLast(30);
+			list.InsertFront(10, "Test");
+			list.InsertLast(20, "Test");
+			list.InsertLast(30, "Test");
 			it = list.GetEnd();
-			EXPECT_EQ(true, list.CheckTail(it));
+			EXPECT_EQ(it, list.GetEnd());
 		}
 
 		/**********************************************************************************//**
@@ -204,9 +200,9 @@ namespace ex01_DataStructure
 		TEST(PushBackTest, TestPushToList)
 		{
 			LinkedList list;
-			list.InsertFront(10);
-			list.InsertLast(20);
-			list.InsertFront(30);
+			list.InsertFront(10, "Test");
+			list.InsertLast(20, "Test");
+			list.InsertFront(30, "Test");
 			EXPECT_EQ(3, list.GetDataNum());
 		}
 
@@ -222,10 +218,10 @@ namespace ex01_DataStructure
 			LinkedList list;
 			LinkedList::Iterator it;
 			it = list.GetBegin();
-			EXPECT_EQ(true, list.InsertBool(it, 10));
+			EXPECT_EQ(true, list.InsertBool(it, 10, "Test"));
 			it = list.GetEnd();
-			EXPECT_EQ(true, list.InsertBool(it, 20));
-			EXPECT_EQ(true, list.InsertBool(it, 30));
+			EXPECT_EQ(true, list.InsertBool(it, 20, "Test"));
+			EXPECT_EQ(true, list.InsertBool(it, 30, "Test"));
 		}
 
 		/**********************************************************************************//**
@@ -240,7 +236,7 @@ namespace ex01_DataStructure
 			LinkedList list;
 			LinkedList::Iterator it;
 			it = nullptr;
-			EXPECT_EQ(false, list.InsertBool(it, 10));
+			EXPECT_EQ(false, list.InsertBool(it, 10, "Test"));
 		}
 
 		/**********************************************************************************//**
@@ -269,8 +265,8 @@ namespace ex01_DataStructure
 		{
 			LinkedList list;
 			LinkedList::Iterator it;
-			list.InsertFront(10);
-			list.InsertLast(20);
+			list.InsertFront(10, "Test");
+			list.InsertLast(20, "Test");
 			it = list.GetBegin();
 			EXPECT_EQ(true, list.DeleteBool(it));
 		}
@@ -286,8 +282,8 @@ namespace ex01_DataStructure
 		{
 			LinkedList list;
 			LinkedList::Iterator it;
-			list.InsertFront(10);
-			list.InsertLast(20);
+			list.InsertFront(10, "Test");
+			list.InsertLast(20, "Test");
 			it = list.GetEnd();
 			EXPECT_EQ(true, list.DeleteBool(it));
 		}
@@ -303,10 +299,10 @@ namespace ex01_DataStructure
 		{
 			LinkedList list;
 			LinkedList::Iterator it;
-			list.InsertFront(10);
-			list.InsertLast(20);
-			list.InsertFront(30);
-			list.InsertLast(40);
+			list.InsertFront(10, "Test");
+			list.InsertLast(20, "Test");
+			list.InsertFront(30, "Test");
+			list.InsertLast(40, "Test");
 			it = list.GetBegin();
 			it++;
 			EXPECT_EQ(true, list.DeleteBool(it));
@@ -322,8 +318,8 @@ namespace ex01_DataStructure
 		TEST(DeleteBackTest, TestDeleteToConstIterator)
 		{
 			LinkedList list;
-			list.InsertFront(10);
-			list.InsertLast(20);
+			list.InsertFront(10, "Test");
+			list.InsertLast(20, "Test");
 			LinkedList::Iterator it;
 			it = list.GetBegin();
 			EXPECT_EQ(true, list.DeleteBool(it));
@@ -366,7 +362,7 @@ namespace ex01_DataStructure
 		TEST(FrontIteratorTest, TestIteratorCheckToListWhen1Data)
 		{
 			LinkedList list;
-			list.InsertFront(10);
+			list.InsertFront(10, "Test");
 			EXPECT_EQ(true, list.GetBeginBool());
 		}
 
@@ -380,8 +376,8 @@ namespace ex01_DataStructure
 		TEST(FrontIteratorTest, TestIteratorCheckToListWhen2Date)
 		{
 			LinkedList list;
-			list.InsertFront(10);
-			list.InsertLast(20);
+			list.InsertFront(10, "Test");
+			list.InsertLast(20, "Test");
 			EXPECT_EQ(true, list.GetBeginBool());
 		}
 
@@ -395,8 +391,8 @@ namespace ex01_DataStructure
 		TEST(FrontIteratorTest, TestIteratorCheckToListWhenInsertBack)
 		{
 			LinkedList list;
-			list.InsertFront(10);
-			list.InsertLast(20);
+			list.InsertFront(10, "Test");
+			list.InsertLast(20, "Test");
 			EXPECT_EQ(true, list.GetBeginBool());
 		}
 
@@ -411,8 +407,8 @@ namespace ex01_DataStructure
 		{
 			LinkedList list;
 			LinkedList::Iterator it;
-			list.InsertFront(10);
-			list.InsertLast(20);
+			list.InsertFront(10, "Test");
+			list.InsertLast(20, "Test");
 			it = list.GetBegin();
 			list.Delete(it);
 			EXPECT_EQ(true, list.GetBeginBool());
@@ -441,7 +437,7 @@ namespace ex01_DataStructure
 		TEST(FrontConstIteratorTest, TestConstIteratorCheckToListWhen1Data)
 		{
 			LinkedList list;
-			list.InsertFront(10);
+			list.InsertFront(10, "Test");
 			EXPECT_EQ(true, list.GetConstBeginBool());
 		}
 
@@ -455,8 +451,8 @@ namespace ex01_DataStructure
 		TEST(FrontConstIteratorTest, TestConstIteratorCheckToListWhen2Data)
 		{
 			LinkedList list;
-			list.InsertFront(10);
-			list.InsertLast(20);
+			list.InsertFront(10, "Test");
+			list.InsertLast(20, "Test");
 			EXPECT_EQ(true, list.GetConstBeginBool());
 		}
 
@@ -471,8 +467,8 @@ namespace ex01_DataStructure
 		{
 			LinkedList list;
 			LinkedList::Iterator* it = new LinkedList::Iterator();
-			list.InsertFront(10);
-			list.InsertLast(20);
+			list.InsertFront(10, "Test");
+			list.InsertLast(20, "Test");
 			EXPECT_EQ(true, list.GetConstBeginBool());
 		}
 
@@ -487,8 +483,8 @@ namespace ex01_DataStructure
 		{
 			LinkedList list;
 			LinkedList::Iterator it;
-			list.InsertFront(10);
-			list.InsertLast(20);
+			list.InsertFront(10, "Test");
+			list.InsertLast(20, "Test");
 			it = list.GetBegin();
 			list.Delete(it);
 			EXPECT_EQ(true, list.GetConstBeginBool());
@@ -517,7 +513,7 @@ namespace ex01_DataStructure
 		TEST(EndIteratorTest, TestEndIteratorCheckToListWhen1Data)
 		{
 			LinkedList list;
-			list.InsertFront(10);
+			list.InsertFront(10, "Test");
 			EXPECT_EQ(true, list.GetEndBool());
 		}
 
@@ -531,8 +527,8 @@ namespace ex01_DataStructure
 		TEST(EndIteratorTest, TestEndIteratorCheckToListWhen2Data)
 		{
 			LinkedList list;
-			list.InsertFront(10);
-			list.InsertLast(20);
+			list.InsertFront(10, "Test");
+			list.InsertLast(20, "Test");
 			LinkedList::Iterator it;
 			it = list.GetEnd();
 			EXPECT_EQ(true, list.CheckTail(it));
@@ -548,8 +544,8 @@ namespace ex01_DataStructure
 		TEST(EndIteratorTest, TestEndIteratorCheckToListWhenInsertBack)
 		{
 			LinkedList list;
-			list.InsertFront(10);
-			list.InsertLast(20);
+			list.InsertFront(10, "Test");
+			list.InsertLast(20, "Test");
 			EXPECT_EQ(true, list.GetEndBool());
 		}
 
@@ -564,8 +560,8 @@ namespace ex01_DataStructure
 		{
 			LinkedList list;
 			LinkedList::Iterator it;
-			list.InsertFront(10);
-			list.InsertLast(20);
+			list.InsertFront(10, "Test");
+			list.InsertLast(20, "Test");
 			it = list.GetBegin();
 			list.Delete(it);
 			EXPECT_EQ(true, list.GetEndBool());
@@ -594,7 +590,7 @@ namespace ex01_DataStructure
 		TEST(EndConstIteratorTest, TestEndConstIteratorCheckToListWhen1Data)
 		{
 			LinkedList list;
-			list.InsertFront(10);
+			list.InsertFront(10, "Test");
 			EXPECT_EQ(true, list.GetConstEndBool());
 		}
 
@@ -608,8 +604,8 @@ namespace ex01_DataStructure
 		TEST(EndConstIteratorTest, TestEndConstIteratorCheckToListWhen2Data)
 		{
 			LinkedList list;
-			list.InsertFront(10);
-			list.InsertLast(20);
+			list.InsertFront(10, "Test");
+			list.InsertLast(20, "Test");
 			EXPECT_EQ(true, list.GetConstEndBool());
 		}
 
@@ -625,8 +621,8 @@ namespace ex01_DataStructure
 			LinkedList list;
 			LinkedList::Iterator* it = new LinkedList::Iterator();
 			LinkedList::Iterator* it2 = new LinkedList::Iterator();
-			list.InsertFront(10);
-			list.InsertLast(20);
+			list.InsertFront(10, "Test");
+			list.InsertLast(20, "Test");
 			EXPECT_EQ(true, list.GetConstEndBool());
 		}
 
@@ -641,8 +637,8 @@ namespace ex01_DataStructure
 		{
 			LinkedList list;
 			LinkedList::Iterator it;
-			list.InsertFront(10);
-			list.InsertLast(20);
+			list.InsertFront(10, "Test");
+			list.InsertLast(20, "Test");
 			it = list.GetBegin();
 			list.Delete(it);
 			EXPECT_EQ(true, list.GetConstEndBool());
@@ -673,11 +669,13 @@ namespace ex01_DataStructure
 		TEST(IteratorDataTest, TestCheckIteratorDataWhenDifferentData)
 		{
 			LinkedList List;
-			List.InsertFront(1);
+			List.InsertFront(1, "Test1");
 			LinkedList::Iterator it;
 			it = List.GetBegin();
-			it.ChengeData(10);
-			EXPECT_EQ(10, it.GetNodeData());
+			it.ChengeData(10, "Test2");
+			std::string Res = "Test2";
+			EXPECT_EQ(10, it.GetNodeData().Score);
+			EXPECT_EQ(Res, it.GetNodeData().Name);
 		}
 
 		/**********************************************************************************//**
@@ -764,11 +762,13 @@ namespace ex01_DataStructure
 		{
 			LinkedList List;
 			LinkedList::Iterator it;
-			List.InsertFront(10);
-			List.InsertLast(20);
+			List.InsertFront(10, "Test1");
+			List.InsertLast(20, "Test2");
 			it = List.GetBegin();
 			it++;
-			EXPECT_EQ(20, it.GetNodeData());
+			std::string Res = "Test2";
+			EXPECT_EQ(20, it.GetNodeData().Score);
+			EXPECT_EQ(Res, it.GetNodeData().Name);
 		}
 
 		/**********************************************************************************//**
@@ -782,11 +782,13 @@ namespace ex01_DataStructure
 		{
 			LinkedList List;
 			LinkedList::Iterator it;
-			List.InsertFront(10);
-			List.InsertLast(20);
+			List.InsertFront(10, "Test1");
+			List.InsertLast(20, "Test2");
 			it = List.GetBegin();
 			++it;
-			EXPECT_EQ(20, it.GetNodeData());
+			std::string Res = "Test2";
+			EXPECT_EQ(20, it.GetNodeData().Score);
+			EXPECT_EQ(Res, it.GetNodeData().Name);
 		}
 
 		/**********************************************************************************//**
@@ -800,11 +802,13 @@ namespace ex01_DataStructure
 		{
 			LinkedList List;
 			LinkedList::Iterator it;
-			List.InsertFront(10);
-			List.InsertLast(20);
+			List.InsertFront(10, "Test1");
+			List.InsertLast(20, "Test2");
 			it = List.GetBegin();
 			it++;
-			EXPECT_EQ(20, it.GetNodeData());
+			std::string Res = "Test2";
+			EXPECT_EQ(20, it.GetNodeData().Score);
+			EXPECT_EQ(Res, it.GetNodeData().Name);
 		}
 
 		/**********************************************************************************//**
@@ -861,11 +865,13 @@ namespace ex01_DataStructure
 		{
 			LinkedList List;
 			LinkedList::Iterator it;
-			List.InsertFront(10);
-			List.InsertLast(20);
+			List.InsertFront(10, "Test1");
+			List.InsertLast(20, "Test2");
 			it = List.GetEnd();
 			it--;
-			EXPECT_EQ(10, it.GetNodeData());
+			std::string Res = "Test1";
+			EXPECT_EQ(10, it.GetNodeData().Score);
+			EXPECT_EQ(Res, it.GetNodeData().Name);
 		}
 
 		/**********************************************************************************//**
@@ -879,12 +885,16 @@ namespace ex01_DataStructure
 		{
 			LinkedList List;
 			LinkedList::Iterator it;
-			List.InsertFront(10);
-			List.InsertLast(20);
+			List.InsertFront(10, "Test1");
+			List.InsertLast(20, "Test2");
 			it = List.GetEnd();
-			EXPECT_EQ(20, it.GetNodeData());
+			std::string Res = "Test2";
+			EXPECT_EQ(20, it.GetNodeData().Score);
+			EXPECT_EQ(Res, it.GetNodeData().Name);
 			--it;
-			EXPECT_EQ(10, it.GetNodeData());
+			Res = "Test1";
+			EXPECT_EQ(10, it.GetNodeData().Score);
+			EXPECT_EQ(Res, it.GetNodeData().Name);
 		}
 
 		/**********************************************************************************//**
@@ -898,12 +908,16 @@ namespace ex01_DataStructure
 		{
 			LinkedList List;
 			LinkedList::Iterator it;
-			List.InsertFront(10);
-			List.InsertLast(20);
+			List.InsertFront(10, "Test1");
+			List.InsertLast(20, "Test2");
 			it = List.GetEnd();
-			EXPECT_EQ(20, it.GetNodeData());
+			std::string Res = "Test2";
+			EXPECT_EQ(20, it.GetNodeData().Score);
+			EXPECT_EQ(Res, it.GetNodeData().Name);
 			it--;
-			EXPECT_EQ(10, it.GetNodeData());
+			Res = "Test1";
+			EXPECT_EQ(10, it.GetNodeData().Score);
+			EXPECT_EQ("Test1", it.GetNodeData().Name);
 		}
 
 		/**********************************************************************************//**
@@ -916,11 +930,11 @@ namespace ex01_DataStructure
 		TEST(CopyTest, TestCopy)
 		{
 			LinkedList List;
-			List.InsertFront(10);
+			List.InsertFront(10, "Test");
 			LinkedList::ConstIterator constit;
 			constit = List.GetConstBegin();
 			LinkedList::ConstIterator constit2(constit);
-			int num = (*constit2)->Data.Num;
+			int num = (*constit2)->Data.Score;
 			EXPECT_EQ(10, num);
 		}
 
@@ -934,15 +948,19 @@ namespace ex01_DataStructure
 		TEST(AssignmentTest, TestAssignment)
 		{
 			LinkedList List;
-			List.InsertFront(10);
-			List.InsertLast(20);
+			List.InsertFront(10, "Test1");
+			List.InsertLast(20, "Test2");
 			LinkedList::Iterator it;
 			it = List.GetBegin();
 			LinkedList::Iterator it2;
 			it2 = List.GetEnd();
-			EXPECT_EQ(20, it2.GetNodeData());
+			EXPECT_EQ(20, it2.GetNodeData().Score);
+			std::string Res = "Test2";
+			EXPECT_EQ(Res, it2.GetNodeData().Name);
 			it2 = it;
-			EXPECT_EQ(10, it2.GetNodeData());
+			Res = "Test1";
+			EXPECT_EQ(10, it2.GetNodeData().Score);
+			EXPECT_EQ(Res, it2.GetNodeData().Name);
 		}
 
 		/**********************************************************************************//**
@@ -972,7 +990,7 @@ namespace ex01_DataStructure
 		TEST(CorrectTest, TestCorrectWhenCorrectData)
 		{
 			LinkedList List;
-			List.InsertFront(10);
+			List.InsertFront(10, "Test");
 			LinkedList::Iterator it;
 			LinkedList::Iterator it2;
 			it = List.GetBegin();
@@ -990,8 +1008,8 @@ namespace ex01_DataStructure
 		TEST(CorrectTest, TestCorrectWhenDiffarentData)
 		{
 			LinkedList List;
-			List.InsertFront(10);
-			List.InsertLast(20);
+			List.InsertFront(10, "Test");
+			List.InsertLast(20, "Test");
 			LinkedList::Iterator it;
 			LinkedList::Iterator it2;
 			it = List.GetBegin();
@@ -1026,7 +1044,7 @@ namespace ex01_DataStructure
 		TEST(DiffarentTest, TestDiffarentWhenCorrectData)
 		{
 			LinkedList List;
-			List.InsertFront(10);
+			List.InsertFront(10, "Test");
 			LinkedList::Iterator it;
 			LinkedList::Iterator it2;
 			it = List.GetBegin();
@@ -1044,8 +1062,8 @@ namespace ex01_DataStructure
 		TEST(DiffarentTest, TestDiffarentWhenDiffarentData)
 		{
 			LinkedList List;
-			List.InsertFront(10);
-			List.InsertLast(20);
+			List.InsertFront(10, "Test");
+			List.InsertLast(20, "Test");
 			LinkedList::Iterator it;
 			LinkedList::Iterator it2;
 			it = List.GetBegin();
