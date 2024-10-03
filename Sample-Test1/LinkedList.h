@@ -1,23 +1,39 @@
 #pragma once
 #include <string>
+/**
+ * これはLinkedListクラスの説明です。
+ * このクラスは双方向リストで使用されます。
+ *
+ * @author 吉村括哉
+ * @since 2024-10-02
+ */
 class LinkedList
 {
 private:
-
     class Iterator;
     class ConstIterator;
 
-    //成績データ
+    /**
+     *データを入れる構造体です。
+     *
+     * @param Num 数字
+     */
     struct DATA
     {
-        int num = 0;
+        int Num;
     };
 
-    //ノード
+    /**
+     *ノードを入れる構造体です。
+     *
+     * @param Prev  前のノード
+     * @param Next  次のノード
+     * @param Data  データ
+     */
     struct NODE
     {
-        NODE* prev = NULL;     //一個前のノード
-        NODE* next = NULL;     //次のノード
+        NODE* Prev = NULL;     //一個前のノード
+        NODE* Next = NULL;     //次のノード
         DATA Data;             //データ
     };
 
@@ -28,39 +44,41 @@ private:
     int DataNum = 0;
 
 public:
+    /**
+     * LinkedListクラスのコンストラクタ。
+     * 初期化処理を行います。
+     */
     LinkedList() {}
     ~LinkedList() {}
 
-    ////データを設定する
-    //void SetData(std::string _score, std::string _name) {
-    //    NODE
-    //}
-
-    //データ数を返す
+    /**
+     * データ数を返す関数です。
+     * 現在のデータ数を返します
+     */
     int GetDataNum() { return DataNum; }
 
     //先頭かどうか返す
-    bool CheckHead(Iterator* _it) {
-        if (Head == _it->Node)
+    bool CheckHead(Iterator _it) {
+        if (Head == (*_it))
             return true;
         else
             return false;
     }
 
     //末尾かどうか返す
-    bool CheckTail(Iterator* _it) {
-        if (Tail == _it->Node)
+    bool CheckTail(Iterator _it) {
+        if (Tail == (*_it))
             return true;
         else
             return false;
     }
 
     //先頭に挿入
-    void insertFront(Iterator* _it) {
+    void insertFront(Iterator _it) {
         //新しいノード作成
         NODE* NewNode;
         NewNode = new NODE;
-        NewNode = _it->Node;
+        NewNode = (*_it);
         if (Head == NULL)
         {
             //要素がない場合
@@ -71,18 +89,24 @@ public:
         {
             //要素がある場合
             //リンクを繋ぎ変える
-            NewNode->next = Head;
-            Head->prev = NewNode;
+            NewNode->Next = Head;
+            Head->Prev = NewNode;
             Head = NewNode;
         }
         DataNum++;
     }
+
+    /**
+    * 受け取ったデータをリストの先頭に格納する関数です。
+    * @param _score  受け取ったデータのスコア
+    * @param _name   受け取ったデータの名前
+    */
     void InsertFront(int _num)
     {
         //新しいノード作成
         NODE* NewNode;
         DATA Data;
-        Data.num = _num;
+        Data.Num = _num;
         NewNode = new NODE;
         NewNode->Data = Data;
         if (Head == NULL)
@@ -95,19 +119,19 @@ public:
         {
             //要素がある場合
             //リンクを繋ぎ変える
-            NewNode->next = Head;
-            Head->prev = NewNode;
+            NewNode->Next = Head;
+            Head->Prev = NewNode;
             Head = NewNode;
         }
         DataNum++;
     }
 
     //末尾に挿入
-    void InsertLast(Iterator* _it) {
+    void InsertLast(Iterator _it) {
         //新しいノードを作成
         NODE* NewNode;
         NewNode = new NODE;
-        NewNode = _it->Node;
+        NewNode = (*_it);
         if (Tail == NULL)
         {
             //要素がない場合
@@ -118,18 +142,24 @@ public:
         {
             //要素がある場合
             //リンクを繋ぎ変える
-            Tail->next = NewNode;
-            NewNode->prev = Tail;
+            Tail->Next = NewNode;
+            NewNode->Prev = Tail;
             Tail = NewNode;
         }
         DataNum++;
     }
+
+    /**
+    * 受け取ったデータをリストの末尾に格納する関数です。
+    * @param _score  受け取ったデータのスコア
+    * @param _name   受け取ったデータの名前
+    */
     void InsertLast(int _num)
     {
         //新しいノード作成
         NODE* NewNode;
         DATA Data;
-        Data.num = _num;
+        Data.Num = _num;
         NewNode = new NODE;
         NewNode->Data = Data;
         if (Tail == NULL)
@@ -142,189 +172,129 @@ public:
         {
             //要素がある場合
             //リンクを繋ぎ変える
-            Tail->next = NewNode;
-            NewNode->prev = Tail;
+            Tail->Next = NewNode;
+            NewNode->Prev = Tail;
             Tail = NewNode;
         }
         DataNum++;
     }
 
-    //データの挿入(イテレータ)
-    bool Insert(Iterator* _it,int _num)
+    /**
+    * イテレータを使用してリストに格納する関数です。
+    * @param _it     受け取ったイテレータ
+    * @param _score  受け取ったデータのスコア
+    * @param _name   受け取ったデータの名前
+    */
+    void Insert(Iterator _it, int _num)
     {
         //イテレータが空じゃないか確認
-        if (_it != nullptr && _it->Node != nullptr)
+        if ((*_it) != nullptr)
         {
             NODE* current = Head;
             NODE* NewNode = new NODE();
             if (current != nullptr)
             {
-                NewNode = _it->Node;
-                while (current != _it->Node && (Head != nullptr && Tail != nullptr))
+                NewNode = (*_it);
+                while (current != (*_it) && (Head != nullptr && Tail != nullptr))
                 {
-                    current = current->next;
+                    current = current->Next;
                 }
 
                 if (current == Head)
                 {
-                    NewNode->next = current;
-                    current->prev = NewNode;
+                    NewNode->Next = current;
+                    current->Prev = NewNode;
                     Head = NewNode;
                 }
                 else
                 {
-                    NewNode->next = current;
-                    NewNode->prev = current->prev;
-                    current->prev = NewNode;
+                    NewNode->Next = current;
+                    NewNode->Prev = current->Prev;
+                    current->Prev = NewNode;
                 }
             }
             else
             {
-                NewNode = _it->Node;
+                NewNode = (*_it);
                 Head = NewNode;
                 Tail = NewNode;
             }
-
-
-            //NODE* NewNode = new NODE();
-            //NewNode = _it->Node;
-            //if (Tail == nullptr && Head == nullptr)
-            //{
-            //    //先頭と末尾に追加
-            //    Tail = NewNode;
-            //    Head = NewNode;
-            //}
-            //else
-            //{
-            //    NODE* current = Head;
-            //    while (current != nullptr)
-            //    {
-            //        current = current->next;
-            //    }
-            //    if (NewNode == Head)
-            //    {
-            //        NewNode->next = Head;
-            //        Head->prev = NewNode;
-            //        Head = NewNode;
-            //    }
-            //    else if (NewNode == Tail)
-            //    {
-            //        NewNode->prev = Head;
-            //        Head->next = NewNode;
-            //        Tail = NewNode;
-            //    }
-            //    else
-            //    {
-            //        NewNode->next = current;
-            //        NewNode->prev = current->prev;
-            //        current->prev = NewNode;
-
-            //        //NewNode->next = Tail;
-            //        //NewNode->prev = Head;
-            //        //Head->next = NewNode;
-            //        //Tail->prev = NewNode;
-            //    }
-
-            //}
-
             DataNum++;
+        }
+    }
+
+    bool InsertBool(Iterator _it, int _num)
+    {
+        //イテレータが空じゃないか確認
+        if ((*_it) != nullptr)
+        {
             return true;
         }
-
         return false;
     }
 
-    //データの削除(イテレータ)
-    bool Delete(Iterator* _it)
+    /**
+    * イテレータを使用してリストの要素を削除する関数です。
+    * @param _it     受け取ったイテレータ
+    */
+    void Delete(Iterator _it)
     {
         //イテレータが空じゃないか確認
-        if (_it != nullptr && (Head != nullptr && Tail != nullptr))
+        if (Head != nullptr && Tail != nullptr)
         {
             NODE* current = Head;
-            while (current != _it->Node)
+            while (current != (*_it))
             {
                 if (current == nullptr)
                     break;
-                current = current->next;
-                //if (current->next == NULL)
-                //    break;
+                current = current->Next;
             }
 
             if (current != nullptr)
             {
                 if (current == Head)    //先頭だったら
-                    Head = current->next;
-                else if(current == Tail)    //末尾だったら
-                    Tail = current->prev;
-                else
-                {
-                    //ひとつ前のノードと一つ後のノードを組み合わせる
-                    current->prev->next = current->next;
-                    current->next->prev = current->prev;
-                }
-
-                // メモリ解放
-                delete current; 
-                DataNum--;
-                return true;
-            }
-
-        }
-        return false;
-    }
-
-    bool Delete(const Iterator* _it)
-    {
-        //イテレータが空じゃないか確認
-        if (_it != nullptr && (Head != nullptr && Tail != nullptr))
-        {
-            NODE* current = Head;
-            while (current != _it->Node)
-            {
-                if (current == nullptr)
-                    break;
-                current = current->next;
-                //if (current->next == NULL)
-                //    break;
-            }
-
-            if (current != nullptr)
-            {
-                if (current == Head)    //先頭だったら
-                    Head = current->next;
+                    Head = current->Next;
                 else if (current == Tail)    //末尾だったら
-                    Tail = current->prev;
+                    Tail = current->Prev;
                 else
                 {
                     //ひとつ前のノードと一つ後のノードを組み合わせる
-                    current->prev->next = current->next;
-                    current->next->prev = current->prev;
+                    current->Prev->Next = current->Next;
+                    current->Next->Prev = current->Prev;
                 }
-
-                // メモリ解放
-                delete current;
-                DataNum--;
-                return true;
             }
-
+            // メモリ解放
+            delete current;
+            DataNum--;
+        }
+    }
+    bool DeleteBool(Iterator _it)
+    {
+        //イテレータが空じゃないか確認
+        if (Head != nullptr && Tail != nullptr)
+        {
+            return true;
         }
         return false;
     }
 
-    //先頭イテレータ取得
-    LinkedList::Iterator* GetBegin() {
+    /*
+    * 先頭イテレータを取得する関数です。
+    * @return 先頭イテレータ
+    */
+    LinkedList::Iterator GetBegin() {
         if (Head != NULL)
         {
-            Iterator* it = new LinkedList::Iterator();
-            it->Node = Head;
+            Iterator it;
+            it = Head;
             return it;
         }
         else
         {
-            Iterator* it = new LinkedList::Iterator();
+            Iterator it;
             NODE* Node;
             Node = new NODE();
-            it->Node = Node;
+            it = Node;
             Head = Node;
             Tail = Node;
             return it;
@@ -335,31 +305,37 @@ public:
     bool GetBeginBool() {
         if (Head != NULL)
         {
-            Iterator* it = new LinkedList::Iterator();
-            it->Node = Head;
             return true;
         }
         else
         {
-            NODE* node;
+            Iterator it;
+            NODE* Node;
+            Node = new NODE();
+            it = Node;
+            Head = Node;
+            Tail = Node;
             return true;
         }
     }
 
-    ////先頭コンストイテレータ取得
-     LinkedList::ConstIterator* GetConstBegin()const {
+    /*
+    * 先頭コンストイテレータを取得する関数です。
+    * @return 先頭コンストイテレータ
+    */
+    LinkedList::ConstIterator GetConstBegin()const {
         if (Head != NULL)
         {
-            ConstIterator* it = new LinkedList::ConstIterator();
-            it->Node = Head;
+            ConstIterator it;
+            (it) = Head;
             return it;
         }
         else
         {
-            ConstIterator* it = new LinkedList::ConstIterator();
+            ConstIterator it;
             NODE* Node;
             Node = new NODE();
-            it->Node = Node;
+            it = Node;
             return it;
         }
     }
@@ -368,31 +344,35 @@ public:
     const bool GetConstBeginBool() const {
         if (Head != NULL)
         {
-            Iterator* it = new LinkedList::Iterator();
-            it->Node = Head;
             return true;
         }
         else
         {
-            NODE* node;
+            ConstIterator it;
+            NODE* Node;
+            Node = new NODE();
+            it = Node;
             return true;
         }
     }
 
-    //末尾イテレータ取得
-    LinkedList::Iterator* GetEnd() {
+    /*
+    * 末尾イテレータを取得する関数です。
+    * @return 先頭イテレータ
+    */
+    LinkedList::Iterator GetEnd() {
         if (Tail != NULL)
         {
-            Iterator* it = new LinkedList::Iterator();
-            it->Node = Tail;
+            Iterator it;
+            it = Tail;
             return it;
         }
         else
         {
-            Iterator* it = new LinkedList::Iterator();
+            Iterator it;
             NODE* Node;
             Node = new NODE();
-            it->Node = Node;
+            it = Node;
             Head = Node;
             Tail = Node;
             return it;
@@ -403,195 +383,284 @@ public:
     bool GetEndBool() {
         if (Tail != NULL)
         {
-            Iterator* it = new LinkedList::Iterator();
-            it->Node = Tail;
             return true;
         }
         else
         {
-            Iterator* it = new LinkedList::Iterator();
+            Iterator it;
             NODE* Node;
             Node = new NODE();
-            it->Node = Node;
+            it = Node;
             Head = Node;
             Tail = Node;
             return true;
         }
+
     }
 
     //末尾コンストイテレータ取得
     const bool GetConstEndBool() const {
         if (Tail != NULL)
         {
-            Iterator* it = new LinkedList::Iterator();
-            it->Node = Tail;
             return true;
         }
         else
         {
-            Iterator* it = new LinkedList::Iterator();
+            Iterator it;
             NODE* Node;
             Node = new NODE();
-            it->Node = Node;
+            it = Node;
             return true;
         }
     }
 
-    //末尾コンストイテレータ取得
-    LinkedList::ConstIterator* GetConstEnd() const {
+    /*
+     * 末尾コンストイテレータを取得する関数です。
+     * @return 先頭イテレータ
+     */
+    LinkedList::ConstIterator GetConstEnd() const {
         if (Tail != NULL)
         {
-            ConstIterator* it = new LinkedList::ConstIterator();
-            it->Node = Tail;
+            ConstIterator it;
+            it = Tail;
             return it;
         }
         else
         {
-            ConstIterator* it = new LinkedList::ConstIterator();
+            ConstIterator it;
             NODE* Node;
             Node = new NODE();
-            it->Node = Node;
+            it = Node;
             return it;
         }
     }
 
-    ////リストの内容を表示
+    ///*
+    // * リストの内容を先頭から順番に出力する関数です。
+    // */
     //void display() const {
-    //    NODE* current = Head;
-    //    while (current != nullptr) {
-    //        printf("スコア: %s ,名前: %s \n", current->Score.c_str(), current->Name.c_str());
-    //        current = current->next;
+    //    LinkedList::Iterator it;
+    //    it = Head;
+    //    while ((*it) != nullptr) {
+    //        printf("スコア: %s ,名前: %s \n", (*it)->Data.Score.c_str(), (*it)->Data.Name.c_str());
+    //        it++;
+    //        //++it;
     //    }
     //}
 
-    //イテレータクラス
-    class Iterator
+    /*
+    * これはConstIteratorクラスの説明です。
+    * このクラスは双方向リストで使用されます。
+    *
+    * @author 吉村括哉
+    * @since 2024-10-02
+    */
+    class ConstIterator
     {
-    public:
+    protected:
         //ノード
-        NODE *Node = nullptr;
+        NODE* Node = nullptr;
 
-        //要素を返す
-        NODE* GetNode() { return Node; }
+    public:
+        LinkedList::ConstIterator() {}
 
-        //要素を返す
-        bool GetNodeBool() { 
-            if (Node != nullptr)
-                return true;
-            else
-                return false;
+        //オペレータ
+        /*
+         * イテレータを末尾に向かって進めるオペレータです(前置インクリメント)
+         * @return 次のノードを取得したイテレータを返します
+        */
+        LinkedList::Iterator operator++() {
+            Node = Node->Next;
+            LinkedList::Iterator it;
+            it.Node = Node;
+            return it;
         }
 
-        //値取得
-        int GetNodeData()
-        {
-            if (Node != nullptr)
-                return Node->Data.num;
-            else
-                return NULL;
+        /*
+         * イテレータを末尾に向かって進めるオペレータです(後置インクリメント)
+         * @return 次のノードを取得したイテレータを返します
+        */
+        LinkedList::Iterator operator++(int) {
+            LinkedList::Iterator it;
+            it.Node = Node;
+            Node = Node->Next;
+            return it;
         }
 
-        //ノードの中身を変更
-        void ChengeData(int _num)
-        {
-            Node->Data.num = _num;
+        /*
+         * イテレータを先頭に向かって進めるオペレータです(前置インクリメント)
+         * @return 前ノードを取得したイテレータを返します
+        */
+        LinkedList::Iterator operator--() {
+            Node = Node->Prev;
+            LinkedList::Iterator it;
+            it.Node = Node;
+            return it;
         }
 
-        bool FalseCheckIterator(Iterator* _it1, Iterator* _it2)
-        {
-            if (_it1->Node != _it2->Node)
-            {
-                return true;
+        /*
+         * イテレータを先頭に向かって進めるオペレータです(後置インクリメント)
+         * @return 前のノードを取得したイテレータを返します
+        */
+        LinkedList::Iterator operator--(int) {
+            LinkedList::Iterator it;
+            it.Node = Node;
+            Node = Node->Prev;
+            return it;
+        }
+
+        /*
+         * イテレータのさす要素を取得するオペレータ(const)です
+         * @return ノードを返します
+        */
+        const NODE* operator*() const { return Node; }
+        /*
+         * コピ－コンストラクタです
+        */
+        LinkedList::ConstIterator(const LinkedList::ConstIterator& _constit) : Node(_constit.Node) {}
+        //代入
+        const LinkedList::ConstIterator operator=(const Iterator* _it) {
+            if (this != _it) {
+                LinkedList::ConstIterator NewConst;
+                NewConst = _it;
+                return NewConst;
             }
-            else
-                return false;
         }
-
-        bool TrueCheckIterator(Iterator* _it1, Iterator* _it2)
-        {
-            if (_it1->Node == _it2->Node)
-            {
-                return true;
-            }
-            else
-                return false;
-        }
-
-        //イテレータのさす要素を取得する(非const)
-        NODE* operator*() { return Node; }
-
-        //代入する
-        Iterator& operator=(const Iterator& _it) {
-            if (this != &_it) {
-                Node = _it.Node;
-            }
+        //代入
+        LinkedList::ConstIterator operator=(NODE* _node) {
+            this->Node = _node;
             return *this;
         }
 
-        //代入する
-        Iterator operator=(NODE* _node) {
-            if (Node != _node) {
-                Node = _node;
-            }
-            return *this;
+        ////代入
+        //LinkedList::ConstIterator operator=(LinkedList::ConstIterator _node) {
+        //    LinkedList::ConstIterator NewConstit;
+        //    NewConstit = _node;
+        //    return NewConstit;
+        //}
+
+        /*
+         * 比較するオペレータです
+         * @return 同一かを返します
+        */
+        bool operator==(const LinkedList::ConstIterator& _constit) const {
+            return Node == _constit.Node;
         }
 
-        Iterator(){}
-        ~Iterator(){}
-
-        void AddIterator(Iterator* _it)
-        {
-            _it->Node = _it->Node->next;
+        /*
+         * 比較するオペレータです
+         * @return 異なるかを返します
+        */
+        bool operator!=(const LinkedList::ConstIterator& _constit) const {
+            return Node != _constit.Node;
         }
-        void SumIterator(Iterator* _it)
-        {
-            _it->Node = _it->Node->prev;
-        }
-
-    private:
 
     };
 
-    //コンストイテレータクラス
-    class ConstIterator:
-        public Iterator
+    /**
+    * これはIteratorクラスの説明です。
+    * このクラスは双方向リストで使用されます。
+    *
+    * @author 吉村括哉
+    * @since 2024-10-02
+    */
+    class Iterator :
+        public ConstIterator
     {
     public:
+
+        /**
+         * 現在のイテレータの要素を返す関数です。
+         * @return イテレータの中身
+        */
+        NODE* GetNode() { return Node; }
+
+        /**
+         * 現在のイテレータのノードのデータを返す関数です。
+         * @return イテレータのノードの中身
+        */
+        int GetNodeData()
+        {
+            if (Node != nullptr)
+            {
+                DATA Data;
+                Data.Num = Node->Data.Num;
+                return Node->Data.Num;
+            }
+            else
+            {
+                DATA Data;
+                Data.Num = NULL;
+                return NULL;
+            }
+        }
+
+        bool GetNodeDataBool()
+        {
+            if (Node != nullptr)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        /**
+         * イテレータの中身のノードのデータを変更する関数です。
+         * @param _score   変更後のスコア
+         * @param _name    変更後の名前
+        */
+        void ChengeData(int _num)
+        {
+            Node->Data.Num = _num;
+        }
+
+        /**
+         * 受け取ったイテレータが同一でないかを調べる関数です。
+         * @param _it1   比較するイテレータ1
+         * @param _it2   比較するイテレータ2
+         * @return 比較したイテレータが同一でないかを返します
+        */
+        bool FalseCheckIterator(Iterator& _it1, Iterator& _it2)
+        {
+            if (_it1.Node != _it2.Node)
+            {
+                return true;
+            }
+            else
+                return false;
+        }
+
+        /**
+         * 受け取ったイテレータが同一かを調べる関数です。
+         * @param _it1   比較するイテレータ1
+         * @param _it2   比較するイテレータ2
+         * @return 比較したイテレータが同一かを返します
+        */
+        bool TrueCheckIterator(Iterator _it1, Iterator _it2)
+        {
+            if (_it1.Node == _it2.Node)
+            {
+                return true;
+            }
+            else
+                return false;
+        }
+
+        /*
+         * イテレータのさす要素を取得する(非const)関数です。
+         * @return イテレータの要素を返します
+        */
+        NODE* operator*() const { return Node; }
+
         //オペレータ
-        //先頭に向かってイテレータを進める
-        Iterator* operator--(int) {
-            Iterator* it = new Iterator();
-            it->Node = Node->prev;
-            return it;
-        }
-        //末尾に向かってイテレータを進める
-        Iterator* operator++(int) {
-            Iterator* it = new Iterator();
-            it->Node = Node->next;
-            return it;
-        }
-        //イテレータのさす要素を取得する(const)
-        const NODE* operator*() const { return Node; }
-        // コピーコンストラクタ
-       void  CopyConst(NODE* _node) { Node = _node; }
-       //代入
-        const LinkedList::ConstIterator* operator =(const Iterator* _it) {
-            if (this != _it) {
-                LinkedList::ConstIterator* NewConst = new LinkedList::ConstIterator();
-                NewConst->Node = _it->Node;
-                return NewConst;
-            }
-        }
 
-         LinkedList::ConstIterator* operator =(Iterator* _it) {
-            if (this != _it) {
-                LinkedList::ConstIterator* NewConst = new LinkedList::ConstIterator();
-                NewConst->Node = _it->Node;
-                return NewConst;
-            }
+        //代入
+        LinkedList::Iterator& operator=(NODE* _node) {
+            this->Node = _node;
+            return *this;
         }
-
-    private:
-
     };
 };
