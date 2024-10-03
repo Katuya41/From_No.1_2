@@ -9,9 +9,11 @@
  */
 class LinkedList
 {
-private:
+public:
     class Iterator;
     class ConstIterator;
+
+private:
 
     /**
      *データを入れる構造体です。
@@ -453,8 +455,7 @@ public:
     * @author 吉村括哉
     * @since 2024-10-02
     */
-#pragma warning(push)
-#pragma warning(disable : 4240)
+
 public:
     class ConstIterator
     {
@@ -693,5 +694,4 @@ public:
             return *this;
         }
     };
-#pragma warning(pop)
 };
