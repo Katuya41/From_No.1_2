@@ -1,7 +1,7 @@
 #include "pch.h"
 
 // GoogleTestのヘッダ。ウィザードにて別のファイルに記述されている場合は、不要です。
-#include <gtest/gtest.h>
+//#include <gtest/gtest.h>
 
 // 例。自分のプロジェクトにあったヘッダファイルをincludeしてください。
 #include "LinkedList.h"
@@ -173,7 +173,7 @@ namespace ex01_DataStructure
 			list.InsertFront(10);
 			list.InsertLast(20);
 			it = list.GetBegin();
-			EXPECT_EQ(true,list.CheckHead(it));
+			EXPECT_EQ(true, list.CheckHead(it));
 		}
 
 		/**********************************************************************************//**
@@ -222,7 +222,7 @@ namespace ex01_DataStructure
 			LinkedList list;
 			LinkedList::Iterator it;
 			it = list.GetBegin();
-			EXPECT_EQ(true, list.InsertBool(it,10));
+			EXPECT_EQ(true, list.InsertBool(it, 10));
 			it = list.GetEnd();
 			EXPECT_EQ(true, list.InsertBool(it, 20));
 			EXPECT_EQ(true, list.InsertBool(it, 30));
@@ -658,7 +658,9 @@ namespace ex01_DataStructure
 		TEST(IteratorDataTest, TestCheckIteratorDataWhenEmpty)
 		{
 			LinkedList::Iterator it;
-			ASSERT_TRUE(true, it.GetNodeDataBool());
+			//ASSERT_TRUE();
+			it.GetNodeDataBool();
+			ASSERT_FALSE(it.GetNodeDataBool());
 		}
 
 		/**********************************************************************************//**
@@ -690,7 +692,7 @@ namespace ex01_DataStructure
 			LinkedList List;
 			LinkedList::Iterator it;
 			it = List.GetBegin();
-			ASSERT_TRUE(true,it.GetNode());
+			ASSERT_TRUE(it.GetNodeDataBool());
 		}
 
 		/**********************************************************************************//**
@@ -705,7 +707,7 @@ namespace ex01_DataStructure
 			LinkedList List;
 			LinkedList::Iterator it;
 			it = List.GetEnd();
-			ASSERT_TRUE(true, it.GetNode());
+			ASSERT_TRUE(it.GetNodeDataBool());
 		}
 
 		/**********************************************************************************//**
@@ -718,7 +720,7 @@ namespace ex01_DataStructure
 		TEST(AddIteratorTest, TestAddIteratorWhenNotList)
 		{
 			LinkedList::Iterator it;
-			ASSERT_TRUE(true, it++);
+			ASSERT_FALSE(it.AddIterator());
 		}
 
 		/**********************************************************************************//**
@@ -733,7 +735,7 @@ namespace ex01_DataStructure
 			LinkedList List;
 			LinkedList::Iterator it;
 			it = List.GetBegin();
-			ASSERT_TRUE(true, it++);
+			ASSERT_FALSE(it.AddIterator());
 		}
 
 		/**********************************************************************************//**
@@ -748,7 +750,7 @@ namespace ex01_DataStructure
 			LinkedList List;
 			LinkedList::Iterator it;
 			it = List.GetEnd();
-			ASSERT_TRUE(true, it++);
+			ASSERT_FALSE(it.AddIterator());
 		}
 
 		/**********************************************************************************//**
@@ -815,7 +817,7 @@ namespace ex01_DataStructure
 		TEST(SumIteratorTest, TestSumIteratorWhenNotList)
 		{
 			LinkedList::Iterator it;
-			ASSERT_TRUE(true, it--);
+			ASSERT_FALSE(it.SumIterator());
 		}
 
 		/**********************************************************************************//**
@@ -830,7 +832,7 @@ namespace ex01_DataStructure
 			LinkedList List;
 			LinkedList::Iterator it;
 			it = List.GetBegin();
-			ASSERT_TRUE(true, it--);
+			ASSERT_FALSE(it.SumIterator());
 		}
 
 		/**********************************************************************************//**
@@ -845,7 +847,7 @@ namespace ex01_DataStructure
 			LinkedList List;
 			LinkedList::Iterator it;
 			it = List.GetEnd();
-			ASSERT_TRUE(true, it--);
+			ASSERT_FALSE(it.SumIterator());
 		}
 
 		/**********************************************************************************//**

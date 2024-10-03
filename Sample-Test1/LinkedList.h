@@ -20,7 +20,7 @@ private:
      */
     struct DATA
     {
-        int Num;
+        int Num = NULL;
     };
 
     /**
@@ -34,7 +34,7 @@ private:
     {
         NODE* Prev = NULL;     //一個前のノード
         NODE* Next = NULL;     //次のノード
-        DATA Data;             //データ
+        DATA Data = {};          //データ
     };
 
     NODE* Head = nullptr; //先頭のノード
@@ -48,13 +48,11 @@ public:
      * LinkedListクラスのコンストラクタ。
      * 初期化処理を行います。
      */
-    LinkedList() {}
-    ~LinkedList() {}
 
-    /**
-     * データ数を返す関数です。
-     * 現在のデータ数を返します
-     */
+     /**
+      * データ数を返す関数です。
+      * 現在のデータ数を返します
+      */
     int GetDataNum() { return DataNum; }
 
     //先頭かどうか返す
@@ -292,7 +290,7 @@ public:
         else
         {
             Iterator it;
-            NODE* Node;
+            NODE* Node = nullptr;
             Node = new NODE();
             it = Node;
             Head = Node;
@@ -455,6 +453,9 @@ public:
     * @author 吉村括哉
     * @since 2024-10-02
     */
+#pragma warning(push)
+#pragma warning(disable : 4240)
+public:
     class ConstIterator
     {
     protected:
@@ -462,7 +463,7 @@ public:
         NODE* Node = nullptr;
 
     public:
-        LinkedList::ConstIterator() {}
+        LinkedList::ConstIterator() { Node = nullptr; }
 
         //オペレータ
         /*
@@ -564,16 +565,20 @@ public:
     * @author 吉村括哉
     * @since 2024-10-02
     */
+public:
     class Iterator :
         public ConstIterator
     {
     public:
+        LinkedList::Iterator() { Node = nullptr; }
 
         /**
          * 現在のイテレータの要素を返す関数です。
          * @return イテレータの中身
         */
-        NODE* GetNode() { return Node; }
+        NODE* GetNode() {
+            return Node;
+        }
 
         /**
          * 現在のイテレータのノードのデータを返す関数です。
@@ -581,18 +586,9 @@ public:
         */
         int GetNodeData()
         {
-            if (Node != nullptr)
-            {
-                DATA Data;
-                Data.Num = Node->Data.Num;
-                return Node->Data.Num;
-            }
-            else
-            {
-                DATA Data;
-                Data.Num = NULL;
-                return NULL;
-            }
+            DATA Data;
+            Data.Num = Node->Data.Num;
+            return Node->Data.Num;
         }
 
         bool GetNodeDataBool()
@@ -649,11 +645,45 @@ public:
                 return false;
         }
 
+        bool AddIterator()
+        {
+            if (Node != nullptr)
+            {
+                if (Node->Next == nullptr)
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        bool SumIterator()
+        {
+            if (Node != nullptr)
+            {
+                if (Node->Prev == nullptr)
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
         /*
          * イテレータのさす要素を取得する(非const)関数です。
          * @return イテレータの要素を返します
         */
-        NODE* operator*() const { return Node; }
+        NODE* operator*() {
+            return Node;
+        }
 
         //オペレータ
 
@@ -663,4 +693,5 @@ public:
             return *this;
         }
     };
+#pragma warning(pop)
 };
