@@ -218,10 +218,10 @@ namespace ex01_DataStructure
 			LinkedList list;
 			LinkedList::Iterator it;
 			it = list.GetBegin();
-			EXPECT_EQ(true, list.InsertBool(it, 10, "Test"));
+			EXPECT_EQ(true, list.Insert(it, 10, "Test"));
 			it = list.GetEnd();
-			EXPECT_EQ(true, list.InsertBool(it, 20, "Test"));
-			EXPECT_EQ(true, list.InsertBool(it, 30, "Test"));
+			EXPECT_EQ(true, list.Insert(it, 20, "Test"));
+			EXPECT_EQ(true, list.Insert(it, 30, "Test"));
 		}
 
 		/**********************************************************************************//**
@@ -235,8 +235,7 @@ namespace ex01_DataStructure
 		{
 			LinkedList list;
 			LinkedList::Iterator it;
-			it = nullptr;
-			EXPECT_EQ(false, list.InsertBool(it, 10, "Test"));
+			EXPECT_EQ(false, list.Insert(it, 10, "Test"));
 		}
 
 		/**********************************************************************************//**
@@ -250,7 +249,7 @@ namespace ex01_DataStructure
 		{
 			LinkedList list;
 			LinkedList::Iterator it;
-			EXPECT_EQ(false, list.DeleteBool(it));
+			EXPECT_EQ(false, list.Delete(it));
 			//EXPECT_EQ(false, list.GetDataNum());
 		}
 
@@ -268,7 +267,7 @@ namespace ex01_DataStructure
 			list.InsertFront(10, "Test");
 			list.InsertLast(20, "Test");
 			it = list.GetBegin();
-			EXPECT_EQ(true, list.DeleteBool(it));
+			EXPECT_EQ(true, list.Delete(it));
 		}
 
 		/**********************************************************************************//**
@@ -285,7 +284,7 @@ namespace ex01_DataStructure
 			list.InsertFront(10, "Test");
 			list.InsertLast(20, "Test");
 			it = list.GetEnd();
-			EXPECT_EQ(true, list.DeleteBool(it));
+			EXPECT_EQ(true, list.Delete(it));
 		}
 
 		/**********************************************************************************//**
@@ -305,7 +304,7 @@ namespace ex01_DataStructure
 			list.InsertLast(40, "Test");
 			it = list.GetBegin();
 			it++;
-			EXPECT_EQ(true, list.DeleteBool(it));
+			EXPECT_EQ(true, list.Delete(it));
 		}
 
 		/**********************************************************************************//**
@@ -322,7 +321,7 @@ namespace ex01_DataStructure
 			list.InsertLast(20, "Test");
 			LinkedList::Iterator it;
 			it = list.GetBegin();
-			EXPECT_EQ(true, list.DeleteBool(it));
+			EXPECT_EQ(true, list.Delete(it));
 		}
 
 		/**********************************************************************************//**
@@ -336,7 +335,7 @@ namespace ex01_DataStructure
 		{
 			LinkedList list;
 			LinkedList::Iterator it;
-			EXPECT_EQ(false, list.DeleteBool(it));
+			EXPECT_EQ(false, list.Delete(it));
 		}
 
 		/**********************************************************************************//**
@@ -349,7 +348,8 @@ namespace ex01_DataStructure
 		TEST(FrontIteratorTest, TestIteratorCheckToEmpty)
 		{
 			LinkedList list;
-			EXPECT_EQ(true, list.GetBeginBool());
+			LinkedList::Iterator it = list.GetBegin();
+			EXPECT_EQ(true, it.IsDammy());
 		}
 
 		/**********************************************************************************//**
@@ -357,13 +357,14 @@ namespace ex01_DataStructure
 			@details	ID:リスト-24\n
 						先頭イテレータテストです。\n
 						リストに1つ挿入されている場合に呼び出した際の挙動を確認しています。\n
-						ダミーノードを取得できれば成功です。\n
+						先頭要素を指すノードを取得できれば成功です。\n
 		*//***********************************************************************************/
 		TEST(FrontIteratorTest, TestIteratorCheckToListWhen1Data)
 		{
 			LinkedList list;
 			list.InsertFront(10, "Test");
-			EXPECT_EQ(true, list.GetBeginBool());
+			LinkedList::Iterator it = list.GetBegin();
+			EXPECT_EQ(it, list.GetBegin());
 		}
 
 		/**********************************************************************************//**
@@ -371,14 +372,15 @@ namespace ex01_DataStructure
 			@details	ID:リスト-25\n
 						先頭イテレータテストです。\n
 						リストに2つ挿入されている場合に呼び出した際の挙動を確認しています。\n
-						ダミーノードを取得できれば成功です。\n
+						先頭要素を指すノードを取得できれば成功です。\n
 		*//***********************************************************************************/
 		TEST(FrontIteratorTest, TestIteratorCheckToListWhen2Date)
 		{
 			LinkedList list;
 			list.InsertFront(10, "Test");
 			list.InsertLast(20, "Test");
-			EXPECT_EQ(true, list.GetBeginBool());
+			LinkedList::Iterator it = list.GetBegin();
+			EXPECT_EQ(it, list.GetBegin());
 		}
 
 		/**********************************************************************************//**
@@ -393,7 +395,8 @@ namespace ex01_DataStructure
 			LinkedList list;
 			list.InsertFront(10, "Test");
 			list.InsertLast(20, "Test");
-			EXPECT_EQ(true, list.GetBeginBool());
+			LinkedList::Iterator it = list.GetBegin();
+			EXPECT_EQ(it, list.GetBegin());
 		}
 
 		/**********************************************************************************//**
@@ -411,7 +414,8 @@ namespace ex01_DataStructure
 			list.InsertLast(20, "Test");
 			it = list.GetBegin();
 			list.Delete(it);
-			EXPECT_EQ(true, list.GetBeginBool());
+			it = list.GetBegin();
+			EXPECT_EQ(it, list.GetBegin());
 		}
 
 		/**********************************************************************************//**
@@ -424,7 +428,9 @@ namespace ex01_DataStructure
 		TEST(FrontConstIteratorTest, TestConstIteratorCheckToEmpty)
 		{
 			LinkedList list;
-			EXPECT_EQ(true, list.GetConstBeginBool());
+			LinkedList::ConstIterator Constit;
+			Constit = list.GetConstBegin();
+			EXPECT_EQ(true, Constit.IsDammy());
 		}
 
 		/**********************************************************************************//**
@@ -438,7 +444,9 @@ namespace ex01_DataStructure
 		{
 			LinkedList list;
 			list.InsertFront(10, "Test");
-			EXPECT_EQ(true, list.GetConstBeginBool());
+			LinkedList::ConstIterator Constit;
+			Constit = list.GetConstBegin();
+			EXPECT_EQ(Constit, list.GetConstBegin());
 		}
 
 		/**********************************************************************************//**
@@ -453,7 +461,9 @@ namespace ex01_DataStructure
 			LinkedList list;
 			list.InsertFront(10, "Test");
 			list.InsertLast(20, "Test");
-			EXPECT_EQ(true, list.GetConstBeginBool());
+			LinkedList::ConstIterator Constit;
+			Constit = list.GetConstBegin();
+			EXPECT_EQ(Constit, list.GetConstBegin());
 		}
 
 		/**********************************************************************************//**
@@ -466,10 +476,11 @@ namespace ex01_DataStructure
 		TEST(FrontConstIteratorTest, TestConstIteratorCheckToListWhenIsertBack)
 		{
 			LinkedList list;
-			LinkedList::Iterator* it = new LinkedList::Iterator();
 			list.InsertFront(10, "Test");
 			list.InsertLast(20, "Test");
-			EXPECT_EQ(true, list.GetConstBeginBool());
+			LinkedList::ConstIterator Constit;
+			Constit = list.GetConstBegin();
+			EXPECT_EQ(Constit, list.GetConstBegin());
 		}
 
 		/**********************************************************************************//**
@@ -487,7 +498,9 @@ namespace ex01_DataStructure
 			list.InsertLast(20, "Test");
 			it = list.GetBegin();
 			list.Delete(it);
-			EXPECT_EQ(true, list.GetConstBeginBool());
+			LinkedList::ConstIterator Constit;
+			Constit = list.GetConstBegin();
+			EXPECT_EQ(Constit, list.GetConstBegin());
 		}
 
 		/**********************************************************************************//**
@@ -500,7 +513,9 @@ namespace ex01_DataStructure
 		TEST(EndIteratorTest, TestEndIteratorCheckToEmpty)
 		{
 			LinkedList list;
-			EXPECT_EQ(true, list.GetEndBool());
+			LinkedList::Iterator it;
+			it = list.GetBegin();
+			EXPECT_EQ(true, it.IsDammy());
 		}
 
 		/**********************************************************************************//**
@@ -514,7 +529,9 @@ namespace ex01_DataStructure
 		{
 			LinkedList list;
 			list.InsertFront(10, "Test");
-			EXPECT_EQ(true, list.GetEndBool());
+			LinkedList::Iterator it;
+			it = list.GetEnd();
+			EXPECT_EQ(it, list.GetEnd());
 		}
 
 		/**********************************************************************************//**
@@ -531,7 +548,7 @@ namespace ex01_DataStructure
 			list.InsertLast(20, "Test");
 			LinkedList::Iterator it;
 			it = list.GetEnd();
-			EXPECT_EQ(true, list.CheckTail(it));
+			EXPECT_EQ(it, list.GetEnd());
 		}
 
 		/**********************************************************************************//**
@@ -546,7 +563,9 @@ namespace ex01_DataStructure
 			LinkedList list;
 			list.InsertFront(10, "Test");
 			list.InsertLast(20, "Test");
-			EXPECT_EQ(true, list.GetEndBool());
+			LinkedList::Iterator it;
+			it = list.GetEnd();
+			EXPECT_EQ(it, list.GetEnd());
 		}
 
 		/**********************************************************************************//**
@@ -564,7 +583,8 @@ namespace ex01_DataStructure
 			list.InsertLast(20, "Test");
 			it = list.GetBegin();
 			list.Delete(it);
-			EXPECT_EQ(true, list.GetEndBool());
+			it = list.GetEnd();
+			EXPECT_EQ(it, list.GetEnd());
 		}
 
 		/**********************************************************************************//**
@@ -572,12 +592,14 @@ namespace ex01_DataStructure
 			@details	ID:リスト-41\n
 						末尾コンストイテレータテストです。\n
 						リストが空の場合に呼び出した際の挙動を確認しています。\n
-						要素を取得できれば成功です。\n
+						ダミーノード取得できれば成功です。\n
 		*//***********************************************************************************/
 		TEST(EndConstIteratorTest, TestEndConstIteratorCheckToEmpty)
 		{
 			LinkedList list;
-			EXPECT_EQ(true, list.GetConstEndBool());
+			LinkedList::ConstIterator Constit;
+			Constit = list.GetConstEnd();
+			EXPECT_EQ(true, Constit.IsDammy());
 		}
 
 		/**********************************************************************************//**
@@ -591,7 +613,8 @@ namespace ex01_DataStructure
 		{
 			LinkedList list;
 			list.InsertFront(10, "Test");
-			EXPECT_EQ(true, list.GetConstEndBool());
+			LinkedList::ConstIterator Constit = list.GetConstEnd();
+			EXPECT_EQ(Constit, list.GetConstEnd());
 		}
 
 		/**********************************************************************************//**
@@ -606,7 +629,8 @@ namespace ex01_DataStructure
 			LinkedList list;
 			list.InsertFront(10, "Test");
 			list.InsertLast(20, "Test");
-			EXPECT_EQ(true, list.GetConstEndBool());
+			LinkedList::ConstIterator Constit = list.GetConstEnd();
+			EXPECT_EQ(Constit, list.GetConstEnd());
 		}
 
 		/**********************************************************************************//**
@@ -623,7 +647,8 @@ namespace ex01_DataStructure
 			LinkedList::Iterator* it2 = new LinkedList::Iterator();
 			list.InsertFront(10, "Test");
 			list.InsertLast(20, "Test");
-			EXPECT_EQ(true, list.GetConstEndBool());
+			LinkedList::ConstIterator Constit = list.GetConstEnd();
+			EXPECT_EQ(Constit, list.GetConstEnd());
 		}
 
 		/**********************************************************************************//**
@@ -641,7 +666,8 @@ namespace ex01_DataStructure
 			list.InsertLast(20, "Test");
 			it = list.GetBegin();
 			list.Delete(it);
-			EXPECT_EQ(true, list.GetConstEndBool());
+			LinkedList::ConstIterator Constit = list.GetConstEnd();
+			EXPECT_EQ(Constit, list.GetConstEnd());
 		}
 
 		/**********************************************************************************//**
@@ -654,9 +680,9 @@ namespace ex01_DataStructure
 		TEST(IteratorDataTest, TestCheckIteratorDataWhenEmpty)
 		{
 			LinkedList::Iterator it;
-			//ASSERT_TRUE();
-			it.GetNodeDataBool();
-			ASSERT_FALSE(it.GetNodeDataBool());
+			// このASSERT_EQは意図的に失敗します。
+			//ASSERT_EQ((*it), nullptr) << "This assertion is expected to fail";
+			EXPECT_DEATH((*it), "ASSERT");
 		}
 
 		/**********************************************************************************//**
@@ -670,12 +696,15 @@ namespace ex01_DataStructure
 		{
 			LinkedList List;
 			List.InsertFront(1, "Test1");
+			List.InsertLast(2, "Test2");
 			LinkedList::Iterator it;
+			LinkedList::Iterator it2;
 			it = List.GetBegin();
-			it.ChengeData(10, "Test2");
-			std::string Res = "Test2";
-			EXPECT_EQ(10, it.GetNodeData().Score);
-			EXPECT_EQ(Res, it.GetNodeData().Name);
+			it2 = List.GetEnd();
+			it2 = it;
+			std::string Res = "Test1";
+			EXPECT_EQ(1, (*it2).Score);
+			EXPECT_EQ(Res, (*it2).Name);
 		}
 
 		/**********************************************************************************//**
@@ -690,7 +719,8 @@ namespace ex01_DataStructure
 			LinkedList List;
 			LinkedList::Iterator it;
 			it = List.GetBegin();
-			ASSERT_TRUE(it.GetNodeDataBool());
+			//ASSERT_EQ((*it), nullptr) << "This assertion is expected to fail";
+			EXPECT_DEATH((*it), "ASSERT");
 		}
 
 		/**********************************************************************************//**
@@ -705,7 +735,9 @@ namespace ex01_DataStructure
 			LinkedList List;
 			LinkedList::Iterator it;
 			it = List.GetEnd();
-			ASSERT_TRUE(it.GetNodeDataBool());
+			//ASSERT_EQ((*it), nullptr) << "This assertion is expected to fail";
+			//ASSERT_TRUE(it.GetNodeDataBool());
+			EXPECT_DEATH((*it), "ASSERT");
 		}
 
 		/**********************************************************************************//**
@@ -718,7 +750,9 @@ namespace ex01_DataStructure
 		TEST(AddIteratorTest, TestAddIteratorWhenNotList)
 		{
 			LinkedList::Iterator it;
-			ASSERT_FALSE(it.AddIterator());
+			///it++;
+			//ASSERT_EQ(true, it.IsDammy()) << "This assertion is expected to fail";
+			EXPECT_DEATH((it++), "ASSERT");
 		}
 
 		/**********************************************************************************//**
@@ -733,7 +767,9 @@ namespace ex01_DataStructure
 			LinkedList List;
 			LinkedList::Iterator it;
 			it = List.GetBegin();
-			ASSERT_FALSE(it.AddIterator());
+			//it++;
+			//ASSERT_EQ(true, it.IsDammy()) << "This assertion is expected to fail";
+			EXPECT_DEATH((it++), "ASSERT");
 		}
 
 		/**********************************************************************************//**
@@ -748,7 +784,9 @@ namespace ex01_DataStructure
 			LinkedList List;
 			LinkedList::Iterator it;
 			it = List.GetEnd();
-			ASSERT_FALSE(it.AddIterator());
+			//it++;
+			//ASSERT_EQ(true, it.IsDammy()) << "This assertion is expected to fail";
+			EXPECT_DEATH((it++), "ASSERT");
 		}
 
 		/**********************************************************************************//**
@@ -767,8 +805,8 @@ namespace ex01_DataStructure
 			it = List.GetBegin();
 			it++;
 			std::string Res = "Test2";
-			EXPECT_EQ(20, it.GetNodeData().Score);
-			EXPECT_EQ(Res, it.GetNodeData().Name);
+			EXPECT_EQ(20, (*it).Score);
+			EXPECT_EQ(Res, (*it).Name);
 		}
 
 		/**********************************************************************************//**
@@ -787,8 +825,8 @@ namespace ex01_DataStructure
 			it = List.GetBegin();
 			++it;
 			std::string Res = "Test2";
-			EXPECT_EQ(20, it.GetNodeData().Score);
-			EXPECT_EQ(Res, it.GetNodeData().Name);
+			EXPECT_EQ(20, (*it).Score);
+			EXPECT_EQ(Res, (*it).Name);
 		}
 
 		/**********************************************************************************//**
@@ -807,8 +845,8 @@ namespace ex01_DataStructure
 			it = List.GetBegin();
 			it++;
 			std::string Res = "Test2";
-			EXPECT_EQ(20, it.GetNodeData().Score);
-			EXPECT_EQ(Res, it.GetNodeData().Name);
+			EXPECT_EQ(20, (*it).Score);
+			EXPECT_EQ(Res, (*it).Name);
 		}
 
 		/**********************************************************************************//**
@@ -821,7 +859,9 @@ namespace ex01_DataStructure
 		TEST(SumIteratorTest, TestSumIteratorWhenNotList)
 		{
 			LinkedList::Iterator it;
-			ASSERT_FALSE(it.SumIterator());
+			//it--;
+			//ASSERT_EQ(true, it.IsDammy()) << "This assertion is expected to fail";
+			EXPECT_DEATH((it--), "ASSERT");
 		}
 
 		/**********************************************************************************//**
@@ -836,7 +876,9 @@ namespace ex01_DataStructure
 			LinkedList List;
 			LinkedList::Iterator it;
 			it = List.GetBegin();
-			ASSERT_FALSE(it.SumIterator());
+			//it--;
+			//ASSERT_EQ(true, it.IsDammy()) << "This assertion is expected to fail";
+			EXPECT_DEATH((it--), "ASSERT");
 		}
 
 		/**********************************************************************************//**
@@ -851,7 +893,9 @@ namespace ex01_DataStructure
 			LinkedList List;
 			LinkedList::Iterator it;
 			it = List.GetEnd();
-			ASSERT_FALSE(it.SumIterator());
+			//it--;
+			//ASSERT_EQ(true, it.IsDammy()) << "This assertion is expected to fail";
+			EXPECT_DEATH((it--), "ASSERT");
 		}
 
 		/**********************************************************************************//**
@@ -870,8 +914,8 @@ namespace ex01_DataStructure
 			it = List.GetEnd();
 			it--;
 			std::string Res = "Test1";
-			EXPECT_EQ(10, it.GetNodeData().Score);
-			EXPECT_EQ(Res, it.GetNodeData().Name);
+			EXPECT_EQ(10, (*it).Score);
+			EXPECT_EQ(Res, (*it).Name);
 		}
 
 		/**********************************************************************************//**
@@ -889,12 +933,12 @@ namespace ex01_DataStructure
 			List.InsertLast(20, "Test2");
 			it = List.GetEnd();
 			std::string Res = "Test2";
-			EXPECT_EQ(20, it.GetNodeData().Score);
-			EXPECT_EQ(Res, it.GetNodeData().Name);
+			EXPECT_EQ(20, (*it).Score);
+			EXPECT_EQ(Res, (*it).Name);
 			--it;
 			Res = "Test1";
-			EXPECT_EQ(10, it.GetNodeData().Score);
-			EXPECT_EQ(Res, it.GetNodeData().Name);
+			EXPECT_EQ(10, (*it).Score);
+			EXPECT_EQ(Res, (*it).Name);
 		}
 
 		/**********************************************************************************//**
@@ -912,12 +956,12 @@ namespace ex01_DataStructure
 			List.InsertLast(20, "Test2");
 			it = List.GetEnd();
 			std::string Res = "Test2";
-			EXPECT_EQ(20, it.GetNodeData().Score);
-			EXPECT_EQ(Res, it.GetNodeData().Name);
+			EXPECT_EQ(20, (*it).Score);
+			EXPECT_EQ(Res, (*it).Name);
 			it--;
 			Res = "Test1";
-			EXPECT_EQ(10, it.GetNodeData().Score);
-			EXPECT_EQ("Test1", it.GetNodeData().Name);
+			EXPECT_EQ(10, (*it).Score);
+			EXPECT_EQ(Res, (*it).Name);
 		}
 
 		/**********************************************************************************//**
@@ -934,7 +978,7 @@ namespace ex01_DataStructure
 			LinkedList::ConstIterator constit;
 			constit = List.GetConstBegin();
 			LinkedList::ConstIterator constit2(constit);
-			int num = (*constit2)->Data.Score;
+			int num = (*constit2).Score;
 			EXPECT_EQ(10, num);
 		}
 
@@ -954,13 +998,13 @@ namespace ex01_DataStructure
 			it = List.GetBegin();
 			LinkedList::Iterator it2;
 			it2 = List.GetEnd();
-			EXPECT_EQ(20, it2.GetNodeData().Score);
+			EXPECT_EQ(20, (*it2).Score);
 			std::string Res = "Test2";
-			EXPECT_EQ(Res, it2.GetNodeData().Name);
+			EXPECT_EQ(Res, (*it2).Name);
 			it2 = it;
 			Res = "Test1";
-			EXPECT_EQ(10, it2.GetNodeData().Score);
-			EXPECT_EQ(Res, it2.GetNodeData().Name);
+			EXPECT_EQ(10, (*it2).Score);
+			EXPECT_EQ(Res, (*it2).Name);
 		}
 
 		/**********************************************************************************//**
@@ -977,7 +1021,10 @@ namespace ex01_DataStructure
 			LinkedList::Iterator it2;
 			it = List.GetBegin();
 			it2 = List.GetEnd();
-			EXPECT_EQ(true, it.TrueCheckIterator(it, it2));
+			bool IsTrue = false;
+			if (it == it2)
+				IsTrue = true;
+			EXPECT_EQ(true, IsTrue);
 		}
 
 		/**********************************************************************************//**
@@ -995,7 +1042,10 @@ namespace ex01_DataStructure
 			LinkedList::Iterator it2;
 			it = List.GetBegin();
 			it2 = List.GetBegin();
-			EXPECT_EQ(true, it.TrueCheckIterator(it, it2));
+			bool IsTrue = false;
+			if (it == it2)
+				IsTrue = true;
+			EXPECT_EQ(true, IsTrue);
 		}
 
 		/**********************************************************************************//**
@@ -1014,7 +1064,10 @@ namespace ex01_DataStructure
 			LinkedList::Iterator it2;
 			it = List.GetBegin();
 			it2 = List.GetEnd();
-			EXPECT_EQ(false, it.TrueCheckIterator(it, it2));
+			bool IsTrue = false;
+			if (it == it2)
+				IsTrue = true;
+			EXPECT_EQ(false, IsTrue);
 		}
 
 		/**********************************************************************************//**
@@ -1029,9 +1082,10 @@ namespace ex01_DataStructure
 			LinkedList List;
 			LinkedList::Iterator it;
 			LinkedList::Iterator it2;
-			it = List.GetBegin();
-			it2 = List.GetEnd();
-			EXPECT_EQ(false, it.FalseCheckIterator(it, it2));
+			bool IsTrue = false;
+			if (it != it2)
+				IsTrue = true;
+			EXPECT_EQ(false, IsTrue);
 		}
 
 		/**********************************************************************************//**
@@ -1049,7 +1103,10 @@ namespace ex01_DataStructure
 			LinkedList::Iterator it2;
 			it = List.GetBegin();
 			it2 = List.GetBegin();
-			EXPECT_EQ(false, it.FalseCheckIterator(it, it2));
+			bool IsTrue = false;
+			if (it != it2)
+				IsTrue = true;
+			EXPECT_EQ(false, IsTrue);
 		}
 
 		/**********************************************************************************//**
@@ -1068,7 +1125,10 @@ namespace ex01_DataStructure
 			LinkedList::Iterator it2;
 			it = List.GetBegin();
 			it2 = List.GetEnd();
-			EXPECT_EQ(true, it.FalseCheckIterator(it, it2));
+			bool IsTrue = false;
+			if (it != it2)
+				IsTrue = true;
+			EXPECT_EQ(true, IsTrue);
 		}
 
 	}

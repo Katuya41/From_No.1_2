@@ -5,6 +5,7 @@
 #include <sstream>
 
 #include "LinkedList.h"
+#include "main.h"
 
 using namespace std;
 
@@ -31,7 +32,14 @@ int main(void)
     }
 
     //リストの中身を最初から末尾まで表示
-    List.display();
+    //Display(List);
+    LinkedList::Iterator it;
+    it = List.GetBegin();
+    while ((*it) != List.GetDammy()) {
+        printf("スコア: %s ,名前: %s \n", (*it)->Data.Score.c_str(), (*it)->Data.Name.c_str());
+        it++;
+        //++it;
+    }
 
 	return 0;
 }
