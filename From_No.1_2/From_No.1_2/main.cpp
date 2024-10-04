@@ -28,17 +28,17 @@ int main(void)
         // 名前とスコアを表示(確認用)
         //printf("スコア: %s ,名前: %s \n", Score, Name);
         //リストの一番末尾に入れる
-        List.InsertLast(Score, Name);
+        LinkedList::Iterator it = List.GetEnd();
+        List.Insert(it,std::stoi(Score), Name);
     }
 
     //リストの中身を最初から末尾まで表示
     //Display(List);
     LinkedList::Iterator it;
     it = List.GetBegin();
-    while ((*it) != List.GetDammy()) {
-        printf("スコア: %s ,名前: %s \n", (*it)->Data.Score.c_str(), (*it)->Data.Name.c_str());
-        it++;
-        //++it;
+    for (it == List.GetBegin(); it != List.GetEnd(); it++)
+    {
+        printf("スコア: %d ,名前: %s \n", (*it).Score, (*it).Name.c_str());
     }
 
     file.close();

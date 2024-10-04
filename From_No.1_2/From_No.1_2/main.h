@@ -11,7 +11,7 @@
  */
 struct DATA
 {
-    std::string Score;
+    int Score;
     std::string Name;
 };
 
