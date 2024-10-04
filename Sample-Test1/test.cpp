@@ -682,7 +682,7 @@ namespace ex01_DataStructure
 			LinkedList::Iterator it;
 			// Ç±ÇÃASSERT_EQÇÕà”ê}ìIÇ…é∏îsÇµÇ‹Ç∑ÅB
 			//ASSERT_EQ((*it), nullptr) << "This assertion is expected to fail";
-			EXPECT_DEATH((*it), "ASSERT");
+			EXPECT_DEATH( (*it) , "Iterator points to null!");
 		}
 
 		/**********************************************************************************//**
@@ -720,7 +720,7 @@ namespace ex01_DataStructure
 			LinkedList::Iterator it;
 			it = List.GetBegin();
 			//ASSERT_EQ((*it), nullptr) << "This assertion is expected to fail";
-			EXPECT_DEATH((*it), "ASSERT");
+			EXPECT_DEATH((*it), "Iterator points to Dammy!");
 		}
 
 		/**********************************************************************************//**
@@ -737,7 +737,7 @@ namespace ex01_DataStructure
 			it = List.GetEnd();
 			//ASSERT_EQ((*it), nullptr) << "This assertion is expected to fail";
 			//ASSERT_TRUE(it.GetNodeDataBool());
-			EXPECT_DEATH((*it), "ASSERT");
+			EXPECT_DEATH((*it), "Iterator points to Dammy!");
 		}
 
 		/**********************************************************************************//**
@@ -752,7 +752,7 @@ namespace ex01_DataStructure
 			LinkedList::Iterator it;
 			///it++;
 			//ASSERT_EQ(true, it.IsDammy()) << "This assertion is expected to fail";
-			EXPECT_DEATH((it++), "ASSERT");
+			EXPECT_DEATH((it++), "Iterator points to null!");
 		}
 
 		/**********************************************************************************//**
@@ -769,7 +769,7 @@ namespace ex01_DataStructure
 			it = List.GetBegin();
 			//it++;
 			//ASSERT_EQ(true, it.IsDammy()) << "This assertion is expected to fail";
-			EXPECT_DEATH((it++), "ASSERT");
+			EXPECT_DEATH((it++), "Iterator points to Dammy!");
 		}
 
 		/**********************************************************************************//**
@@ -786,7 +786,7 @@ namespace ex01_DataStructure
 			it = List.GetEnd();
 			//it++;
 			//ASSERT_EQ(true, it.IsDammy()) << "This assertion is expected to fail";
-			EXPECT_DEATH((it++), "ASSERT");
+			EXPECT_DEATH((it++), "Iterator points to Dammy!");
 		}
 
 		/**********************************************************************************//**
@@ -861,7 +861,7 @@ namespace ex01_DataStructure
 			LinkedList::Iterator it;
 			//it--;
 			//ASSERT_EQ(true, it.IsDammy()) << "This assertion is expected to fail";
-			EXPECT_DEATH((it--), "ASSERT");
+			EXPECT_DEATH((it--), "Iterator points to null!");
 		}
 
 		/**********************************************************************************//**
@@ -878,7 +878,7 @@ namespace ex01_DataStructure
 			it = List.GetBegin();
 			//it--;
 			//ASSERT_EQ(true, it.IsDammy()) << "This assertion is expected to fail";
-			EXPECT_DEATH((it--), "ASSERT");
+			EXPECT_DEATH((it--), "Iterator points to Dammy!");
 		}
 
 		/**********************************************************************************//**
@@ -895,7 +895,7 @@ namespace ex01_DataStructure
 			it = List.GetEnd();
 			//it--;
 			//ASSERT_EQ(true, it.IsDammy()) << "This assertion is expected to fail";
-			EXPECT_DEATH((it--), "ASSERT");
+			EXPECT_DEATH((it--), "Iterator points to Dammy!");
 		}
 
 		/**********************************************************************************//**

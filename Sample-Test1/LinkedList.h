@@ -382,6 +382,8 @@ public:
          * @return 次のノードを取得したイテレータを返します
         */
         LinkedList::Iterator operator++() {
+            assert(Node != nullptr && "Iterator points to null!");
+            assert(Node->IsDammy != true && "Iterator points to Dammy!");
             Node = Node->Next;
             LinkedList::Iterator it;
             it.Node = Node;
@@ -393,6 +395,8 @@ public:
          * @return 次のノードを取得したイテレータを返します
         */
         LinkedList::Iterator operator++(int) {
+            assert(Node != nullptr && "Iterator points to null!");
+            assert(Node->IsDammy != true && "Iterator points to Dammy!");
                 LinkedList::Iterator it;
                 it.Node = Node;
                 Node = Node->Next;
@@ -405,6 +409,8 @@ public:
          * @return 前ノードを取得したイテレータを返します
         */
         LinkedList::Iterator operator--() {
+            assert(Node != nullptr && "Iterator points to null!");
+            assert(Node->IsDammy != true && "Iterator points to Dammy!");
             Node = Node->Prev;
             LinkedList::Iterator it;
             it.Node = Node;
@@ -416,6 +422,8 @@ public:
          * @return 前のノードを取得したイテレータを返します
         */
         LinkedList::Iterator operator--(int) {
+            assert(Node != nullptr && "Iterator points to null!");
+            assert(Node->IsDammy != true && "Iterator points to Dammy!");
             LinkedList::Iterator it;
             it.Node = Node;
             Node = Node->Prev;
@@ -427,6 +435,8 @@ public:
          * @return イテレータの要素を返します
         */
         DATA operator*() {
+            assert(Node != nullptr && "Iterator points to null!");
+            assert(Node->IsDammy !=  true && "Iterator points to Dammy!");
             return Node->Data;
         }
 
