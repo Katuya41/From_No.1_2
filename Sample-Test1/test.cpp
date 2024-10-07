@@ -712,8 +712,8 @@ namespace ex01_DataStructure
 			it2--;
 			it2 = it;
 			std::string Res = "Test2";
-			EXPECT_EQ(2, (*it2)->Score);
-			EXPECT_EQ(Res, (*it2)->Name);
+			EXPECT_EQ(2, (*it2).Score);
+			EXPECT_EQ(Res, (*it2).Name);
 		}
 
 		/**********************************************************************************//**
@@ -815,8 +815,8 @@ namespace ex01_DataStructure
 			it = List.GetBegin();
 			it++;
 			std::string Res = "Test1";
-			EXPECT_EQ(10, (*it)->Score);
-			EXPECT_EQ(Res, (*it)->Name);
+			EXPECT_EQ(10, (*it).Score);
+			EXPECT_EQ(Res, (*it).Name);
 		}
 
 		/**********************************************************************************//**
@@ -834,12 +834,12 @@ namespace ex01_DataStructure
 			List.Insert(it,20, "Test2");
 			it = List.GetBegin();
 			//++it;
-			DATA* TestData = new DATA();
+			DATA TestData;
 			TestData = (*(++it));
-			EXPECT_EQ(10, TestData->Score);
-			EXPECT_EQ("Test1", TestData->Name);
-			EXPECT_EQ(10, (*it)->Score);
-			EXPECT_EQ("Test1", (*it)->Name);
+			EXPECT_EQ(10, TestData.Score);
+			EXPECT_EQ("Test1", TestData.Name);
+			EXPECT_EQ(10, (*it).Score);
+			EXPECT_EQ("Test1", (*it).Name);
 		}
 
 		/**********************************************************************************//**
@@ -856,12 +856,12 @@ namespace ex01_DataStructure
 			List.Insert(it,10, "Test1");
 			List.Insert(it,20, "Test2");
 			it = List.GetBegin();
-			DATA* TestData = new DATA();
+			DATA TestData;
 			TestData = (*(it++));
-			EXPECT_EQ(20, TestData->Score);
-			EXPECT_EQ("Test2", TestData->Name);
-			EXPECT_EQ(10, (*it)->Score);
-			EXPECT_EQ("Test1", (*it)->Name);
+			EXPECT_EQ(20, TestData.Score);
+			EXPECT_EQ("Test2", TestData.Name);
+			EXPECT_EQ(10, (*it).Score);
+			EXPECT_EQ("Test1", (*it).Name);
 		}
 
 		/**********************************************************************************//**
@@ -930,8 +930,8 @@ namespace ex01_DataStructure
 			it--;
 			it--;
 			std::string Res = "Test2";
-			EXPECT_EQ(20, (*it)->Score);
-			EXPECT_EQ(Res, (*it)->Name);
+			EXPECT_EQ(20, (*it).Score);
+			EXPECT_EQ(Res, (*it).Name);
 		}
 
 		/**********************************************************************************//**
@@ -949,12 +949,12 @@ namespace ex01_DataStructure
 			List.Insert(it,20, "Test2");
 			it = List.GetEnd();
 			it--;
-			DATA* TestData = new DATA();
+			DATA TestData;
 			TestData = (*(--it));
-			EXPECT_EQ(20, TestData->Score);
-			EXPECT_EQ("Test2", TestData->Name);
-			EXPECT_EQ(20, (*it)->Score);
-			EXPECT_EQ("Test2", (*it)->Name);
+			EXPECT_EQ(20, TestData.Score);
+			EXPECT_EQ("Test2", TestData.Name);
+			EXPECT_EQ(20, (*it).Score);
+			EXPECT_EQ("Test2", (*it).Name);
 		}
 
 		/**********************************************************************************//**
@@ -972,12 +972,12 @@ namespace ex01_DataStructure
 			List.Insert(it,20, "Test2");
 			it = List.GetEnd();
 			it--;
-			DATA* TestData = new DATA();
+			DATA TestData;
 			TestData = (*(it--));
-			EXPECT_EQ(10, TestData->Score);
-			EXPECT_EQ("Test1", TestData->Name);
-			EXPECT_EQ(20, (*it)->Score);
-			EXPECT_EQ("Test2", (*it)->Name);
+			EXPECT_EQ(10, TestData.Score);
+			EXPECT_EQ("Test1", TestData.Name);
+			EXPECT_EQ(20, (*it).Score);
+			EXPECT_EQ("Test2", (*it).Name);
 		}
 
 		/**********************************************************************************//**
@@ -995,7 +995,7 @@ namespace ex01_DataStructure
 			LinkedList::ConstIterator constit;
 			constit = List.GetConstBegin();
 			LinkedList::ConstIterator constit2(constit);
-			int num = (*constit2)->Score;
+			int num = (*constit2).Score;
 			EXPECT_EQ(10, num);
 		}
 
@@ -1017,12 +1017,12 @@ namespace ex01_DataStructure
 			it2 = List.GetEnd();
 			it2--;
 			std::string Res = "Test1";
-			EXPECT_EQ(10, (*it2)->Score);
-			EXPECT_EQ(Res, (*it2)->Name);
+			EXPECT_EQ(10, (*it2).Score);
+			EXPECT_EQ(Res, (*it2).Name);
 			it2 = it;
 			Res = "Test2";
-			EXPECT_EQ(20, (*it2)->Score);
-			EXPECT_EQ(Res, (*it2)->Name);
+			EXPECT_EQ(20, (*it2).Score);
+			EXPECT_EQ(Res, (*it2).Name);
 		}
 
 		/**********************************************************************************//**
