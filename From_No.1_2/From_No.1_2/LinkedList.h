@@ -185,7 +185,7 @@ public:
          * イテレータを末尾に向かって進めるオペレータです(前置インクリメント)
          * @return 次のノードを取得したイテレータを返します
         */
-        LinkedList::ConstIterator operator++() {
+        LinkedList::ConstIterator& operator++() {
             this->Node = Node->Next;
             return *this;
         }
@@ -205,7 +205,7 @@ public:
          * イテレータを先頭に向かって進めるオペレータです(前置インクリメント)
          * @return 前ノードを取得したイテレータを返します
         */
-        LinkedList::ConstIterator operator--() {
+        LinkedList::ConstIterator& operator--() {
             this->Node = Node->Prev;
             return *this;
         }
@@ -225,7 +225,7 @@ public:
          * イテレータのさす要素を取得するオペレータ(const)です
          * @return ノードを返します
         */
-        const DATA operator*() const { return this->Node->Data; }
+        const DATA& operator*() const { return this->Node->Data; }
         /*
          * コピ－コンストラクタです
         */
@@ -280,7 +280,7 @@ public:
          * イテレータを末尾に向かって進めるオペレータです(前置インクリメント)
          * @return 次のノードを取得したイテレータを返します
         */
-        LinkedList::Iterator operator++() {
+        LinkedList::Iterator& operator++() {
             //assert(Node != nullptr && "Iterator points to null!");
             //assert(Node->IsDummy != true && "Iterator points to Dummy!");
             this->Node = Node->Next;
@@ -305,7 +305,7 @@ public:
          * イテレータを先頭に向かって進めるオペレータです(前置インクリメント)
          * @return 前ノードを取得したイテレータを返します
         */
-        LinkedList::Iterator operator--() {
+        LinkedList::Iterator& operator--() {
             //assert(Node != nullptr && "Iterator points to null!");
             //assert(Node->IsDummy != true && "Iterator points to Dummy!");
             this->Node = Node->Prev;
@@ -329,7 +329,7 @@ public:
          * イテレータのさす要素を取得する(非const)関数です。
          * @return イテレータの要素を返します
         */
-        DATA operator*() {
+        DATA& operator*() {
             //assert(Node != nullptr && "Iterator points to null!");
             //assert(Node->IsDummy != true && "Iterator points to Dummy!");
             return this->Node->Data;
