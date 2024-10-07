@@ -202,7 +202,7 @@ public:
          * イテレータを末尾に向かって進めるオペレータです(前置インクリメント)
          * @return 次のノードを取得したイテレータを返します
         */
-        LinkedList::ConstIterator operator++() {
+        LinkedList::ConstIterator& operator++() {
             this->Node = Node->Next;
             return *this;
         }
@@ -222,7 +222,7 @@ public:
          * イテレータを先頭に向かって進めるオペレータです(前置インクリメント)
          * @return 前ノードを取得したイテレータを返します
         */
-        LinkedList::ConstIterator operator--() {
+        LinkedList::ConstIterator& operator--() {
             this->Node = Node->Prev;
             return *this;
         }
@@ -297,10 +297,10 @@ public:
          * イテレータを末尾に向かって進めるオペレータです(前置インクリメント)
          * @return 次のノードを取得したイテレータを返します
         */
-        LinkedList::Iterator operator++() {
+        LinkedList::Iterator& operator++() {
             assert(Node != nullptr && "Iterator points to null!");
             assert(Node->Data != nullptr && "Iterator points to Dummy!");
-            this->Node = Node->Next;
+            this->Node = this->Node->Next;
             return *this;
         }
 
@@ -312,8 +312,8 @@ public:
             assert(Node != nullptr && "Iterator points to null!");
             assert(Node->Data != nullptr && "Iterator points to Dummy!");
             LinkedList::Iterator it;
-            it.Node = Node;
-            Node = Node->Next;
+            it.Node = this->Node;
+            this->Node = this->Node->Next;
             return it;
         }
 
@@ -321,10 +321,10 @@ public:
          * イテレータを先頭に向かって進めるオペレータです(前置インクリメント)
          * @return 前ノードを取得したイテレータを返します
         */
-        LinkedList::Iterator operator--() {
-            assert(Node != nullptr && "Iterator points to null!");
-            assert(Node->Prev->Data != nullptr && "Iterator points to Dummy!");
-            this->Node = Node->Prev;
+        LinkedList::Iterator& operator--() {
+            assert(this->Node != nullptr && "Iterator points to null!");
+            assert(this->Node->Prev->Data != nullptr && "Iterator points to Dummy!");
+            this->Node = this->Node->Prev;
             return *this;
         }
 
@@ -333,11 +333,11 @@ public:
          * @return 前のノードを取得したイテレータを返します
         */
         LinkedList::Iterator operator--(int) {
-            assert(Node != nullptr && "Iterator points to null!");
-            assert(Node->Prev->Data != nullptr && "Iterator points to Dummy!");
+            assert(this->Node != nullptr && "Iterator points to null!");
+            assert(this->Node->Prev->Data != nullptr && "Iterator points to Dummy!");
             LinkedList::Iterator it;
-            it.Node = Node;
-            Node = Node->Prev;
+            it.Node = this->Node;
+            this->Node = this->Node->Prev;
             return it;
         }
 
@@ -346,8 +346,8 @@ public:
          * @return イテレータの要素を返します
         */
         DATA* operator*() {
-            assert(Node != nullptr && "Iterator points to null!");
-            assert(Node->Data != nullptr && "Iterator points to Dummy!");
+            assert(this->Node != nullptr && "Iterator points to null!");
+            assert(this->Node->Data != nullptr && "Iterator points to Dummy!");
             return this->Node->Data;
         }
 

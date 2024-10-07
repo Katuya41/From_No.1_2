@@ -833,10 +833,13 @@ namespace ex01_DataStructure
 			List.Insert(it,10, "Test1");
 			List.Insert(it,20, "Test2");
 			it = List.GetBegin();
-			++it;
-			std::string Res = "Test1";
+			//++it;
+			DATA* TestData = new DATA();
+			TestData = (*(++it));
+			EXPECT_EQ(10, TestData->Score);
+			EXPECT_EQ("Test1", TestData->Name);
 			EXPECT_EQ(10, (*it)->Score);
-			EXPECT_EQ(Res, (*it)->Name);
+			EXPECT_EQ("Test1", (*it)->Name);
 		}
 
 		/**********************************************************************************//**
@@ -853,10 +856,12 @@ namespace ex01_DataStructure
 			List.Insert(it,10, "Test1");
 			List.Insert(it,20, "Test2");
 			it = List.GetBegin();
-			it++;
-			std::string Res = "Test1";
+			DATA* TestData = new DATA();
+			TestData = (*(it++));
+			EXPECT_EQ(20, TestData->Score);
+			EXPECT_EQ("Test2", TestData->Name);
 			EXPECT_EQ(10, (*it)->Score);
-			EXPECT_EQ(Res, (*it)->Name);
+			EXPECT_EQ("Test1", (*it)->Name);
 		}
 
 		/**********************************************************************************//**
@@ -944,13 +949,12 @@ namespace ex01_DataStructure
 			List.Insert(it,20, "Test2");
 			it = List.GetEnd();
 			it--;
-			std::string Res = "Test1";
-			EXPECT_EQ(10, (*it)->Score);
-			EXPECT_EQ(Res, (*it)->Name);
-			--it;
-			Res = "Test2";
+			DATA* TestData = new DATA();
+			TestData = (*(--it));
+			EXPECT_EQ(20, TestData->Score);
+			EXPECT_EQ("Test2", TestData->Name);
 			EXPECT_EQ(20, (*it)->Score);
-			EXPECT_EQ(Res, (*it)->Name);
+			EXPECT_EQ("Test2", (*it)->Name);
 		}
 
 		/**********************************************************************************//**
@@ -968,13 +972,12 @@ namespace ex01_DataStructure
 			List.Insert(it,20, "Test2");
 			it = List.GetEnd();
 			it--;
-			std::string Res = "Test1";
-			EXPECT_EQ(10, (*it)->Score);
-			EXPECT_EQ(Res, (*it)->Name);
-			it--;
-			Res = "Test2";
+			DATA* TestData = new DATA();
+			TestData = (*(it--));
+			EXPECT_EQ(10, TestData->Score);
+			EXPECT_EQ("Test1", TestData->Name);
 			EXPECT_EQ(20, (*it)->Score);
-			EXPECT_EQ(Res, (*it)->Name);
+			EXPECT_EQ("Test2", (*it)->Name);
 		}
 
 		/**********************************************************************************//**
