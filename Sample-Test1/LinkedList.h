@@ -242,7 +242,7 @@ public:
          * イテレータのさす要素を取得するオペレータ(const)です
          * @return ノードを返します
         */
-        const DATA* operator*() const { return this->Node->Data; }
+        const DATA& operator*() const { return *this->Node->Data; }
         /*
          * コピ－コンストラクタです
         */
@@ -345,10 +345,10 @@ public:
          * イテレータのさす要素を取得する(非const)関数です。
          * @return イテレータの要素を返します
         */
-        DATA* operator*() {
+        DATA& operator*() {
             assert(this->Node != nullptr && "Iterator points to null!");
             assert(this->Node->Data != nullptr && "Iterator points to Dummy!");
-            return this->Node->Data;
+            return *this->Node->Data;
         }
 
         /*
