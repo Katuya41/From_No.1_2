@@ -191,9 +191,9 @@ public:
     }   
 
     /*
-         * ダミーノードか調べます
+        * ダミーノードか調べます
          * @return ノードがダミーノードかどうかを返します
-        */
+    */
     bool IsDummy(NODE* _node) {
         if (Dummy == _node)
             return true;

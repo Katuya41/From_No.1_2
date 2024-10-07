@@ -16,25 +16,27 @@ public:
 
 private:
     /**
-         *ノードを入れる構造体です。
-         *
-         * @param prev  前のノード
-         * @param next  次のノード
-         * @param Data  データ
-         */
+     *ノードを入れる構造体です。
+     *
+     * @param prev  前のノード
+     * @param next  次のノード
+     * @param Data  データ
+     */
     struct NODE
     {
         NODE* Prev = nullptr;     //一個前のノード
         NODE* Next = nullptr;     //次のノード
         DATA Data;             //データ
-        bool IsDammy = false;  //ダミーか
     };
 
     //ダミーノード
-    NODE Dammy;
+     NODE* Dummy;
 
     //データの数
     int DataNum = 0;
+
+    friend class Iterator;
+    friend class ConstIterator;
 
 public:
     /**
@@ -42,8 +44,9 @@ public:
      * 初期化処理を行います。
      */
     LinkedList() {
-        Dammy.Next = Dammy.Prev = &Dammy;
-        Dammy.IsDammy = true;
+        Dummy = new NODE();
+        Dummy->Next = Dummy->Prev = Dummy;
+        Dummy->Data.Name = "Dammy";
     }
     ~LinkedList() {}
 
@@ -57,54 +60,7 @@ public:
      * ダミーノードを取得する関数です。
      * ダミーノードを返します
      */
-    NODE* GetDammy() { return &Dammy; }
-
-    /**
-    * 受け取ったデータをリストの先頭に格納する関数です。
-    * @param _score  受け取ったデータのスコア
-    * @param _name   受け取ったデータの名前
-    */
-    bool InsertFront(const int& _score, const std::string& _name)
-    {
-        //新しいノード作成
-        NODE* NewNode;
-        //データ入力
-        DATA Data;
-        Data.Score = _score;
-        Data.Name = _name;
-        //ノード作成
-        NewNode = new NODE();
-        NewNode->Data = Data;
-        NewNode->Prev = &Dammy;       //新しいノードの前はダミー(先頭)
-        NewNode->Next = Dammy.Next;   //新しいノードの次はダミーの次(先頭だったノード)
-        Dammy.Next->Prev = NewNode;   //先頭だったノードの前を新しいノード
-        Dammy.Next = NewNode;
-        DataNum++;
-        return true;
-    }
-
-    /**
-    * 受け取ったデータをリストの末尾に格納する関数です。
-    * @param _score  受け取ったデータのスコア
-    * @param _name   受け取ったデータの名前
-    */
-    bool InsertLast(const int& _score, const std::string& _name)
-    {
-        //新しいノード作成
-        NODE* NewNode;
-        DATA Data;
-        Data.Score = _score;
-        Data.Name = _name;
-        //ノード作成
-        NewNode = new NODE();
-        NewNode->Data = Data;
-        NewNode->Prev = Dammy.Prev;   //新しいノードの前はダミー(末尾だったノード)
-        NewNode->Next = &Dammy;       //新しいノードの次はダミー
-        Dammy.Prev->Next = NewNode;   //末尾だったノードの次を新しいノード
-        Dammy.Prev = NewNode;
-        DataNum++;
-        return  true;
-    }
+    NODE* GetDummy() { return Dummy; }
 
     /**
     * イテレータを使用してリストに格納する関数です。
@@ -115,7 +71,7 @@ public:
     bool Insert(Iterator& _it, const int& _score, const std::string& _name)
     {
         //イテレータが空じゃないか確認
-        if (!_it.IsEmpty())
+        if (_it.Node != nullptr)
         {
             //新しいノード作成
             NODE* NewNode = new NODE();
@@ -125,6 +81,7 @@ public:
             NewNode->Data = Data;
             NewNode->Next = _it.Node;
             NewNode->Prev = _it.Node->Prev;
+            _it.Node->Prev->Next = NewNode;
             _it.Node->Prev = NewNode;
             DataNum++;
             return true;
@@ -151,7 +108,9 @@ public:
             NewNode->Data = Data;
             NewNode->Next = _it.Node;
             NewNode->Prev = _it.Node->Prev;
+            _it.Node->Prev->Next = NewNode;
             _it.Node->Prev = NewNode;
+            _it.Node = NewNode;
             DataNum++;
             return true;
         }
@@ -167,10 +126,12 @@ public:
         //イテレータが空じゃないか確認
         if (!_it.IsEmpty())
         {
+            NODE* DeleteNode = _it.Node;
             _it.Node->Next->Prev = _it.Node->Prev;
             _it.Node->Prev->Next = _it.Node->Next;
             delete _it.Node;
             DataNum--;
+            _it.Node = DeleteNode->Next;
             return true;
         }
         return false;
@@ -200,7 +161,7 @@ public:
     */
     LinkedList::Iterator GetBegin() {
         Iterator it;
-        it.Node = Dammy.Next;
+        it.Node = Dummy->Next;
         return it;
     }
 
@@ -210,17 +171,17 @@ public:
     */
     LinkedList::ConstIterator GetConstBegin()const {
         LinkedList::ConstIterator Constit;
-        Constit.Node = Dammy.Next;
+        Constit.Node = Dummy->Next;
         return Constit;
     }
 
     /*
     * 末尾イテレータを取得する関数です。
-    * @return 先頭イテレータ
+    * @return 末尾イテレータ
     */
     LinkedList::Iterator GetEnd() {
         Iterator it;
-        it.Node = Dammy.Prev;
+        it.Node = Dummy;
         return it;
     }
 
@@ -230,29 +191,43 @@ public:
      */
     LinkedList::ConstIterator GetConstEnd() const {
         LinkedList::ConstIterator Constit;
-        Constit.Node = Dammy.Prev;
+        Constit.Node = Dummy->Prev;
         return Constit;
     }
 
     /*
-    * これはConstIteratorクラスの説明です。
-    * このクラスは双方向リストで使用されます。
-    *
-    * @author 吉村括哉
-    * @since 2024-10-02
-    */
+         * ダミーノードか調べます
+         * @return ノードがダミーノードかどうかを返します
+        */
+    bool IsDummy(NODE* _node) {
+        if (Dummy == _node)
+            return true;
+        else
+            return false;
+    }
 
-public:
+    /*
+         * ダミーノードか調べます
+         * @return ノードがダミーノードかどうかを返します
+        */
+    bool IsDummy(ConstIterator _it) {
+        if (Dummy == _it.Node)
+            return true;
+        else
+            return false;
+    }
+
+    //コンストイテレータクラス
     class ConstIterator
     {
+    private:
+        friend class LinkedList;
+
     protected:
         //ノード
         NODE* Node = nullptr;
 
-        friend class LinkedList;
-
     public:
-        //コンストラクタ
         LinkedList::ConstIterator() {}
 
         /*
@@ -266,27 +241,14 @@ public:
                 return false;
         }
 
-        /*
-         * ダミーノードか調べます
-         * @return ノードがダミーノードかどうかを返します
-        */
-        bool IsDammy() {
-            if (Node->IsDammy)
-                return true;
-            else
-                return false;
-        }
-
         //オペレータ
         /*
          * イテレータを末尾に向かって進めるオペレータです(前置インクリメント)
          * @return 次のノードを取得したイテレータを返します
         */
         LinkedList::ConstIterator operator++() {
-            Node = Node->Next;
-            LinkedList::ConstIterator Constit;
-            Constit.Node = Node;
-            return Constit;
+            this->Node = Node->Next;
+            return *this;
         }
 
         /*
@@ -294,10 +256,10 @@ public:
          * @return 次のノードを取得したイテレータを返します
         */
         LinkedList::ConstIterator operator++(int) {
-            LinkedList::ConstIterator Constit;
-            Constit.Node = Node;
+            LinkedList::Iterator it;
+            it.Node = Node;
             Node = Node->Next;
-            return Constit;
+            return it;
         }
 
         /*
@@ -305,10 +267,8 @@ public:
          * @return 前ノードを取得したイテレータを返します
         */
         LinkedList::ConstIterator operator--() {
-            Node = Node->Prev;
-            LinkedList::ConstIterator Constit;
-            Constit.Node = Node;
-            return Constit;
+            this->Node = Node->Prev;
+            return *this;
         }
 
         /*
@@ -316,10 +276,10 @@ public:
          * @return 前のノードを取得したイテレータを返します
         */
         LinkedList::ConstIterator operator--(int) {
-            LinkedList::ConstIterator Constit;
-            Constit.Node = Node;
+            LinkedList::Iterator it;
+            it.Node = Node;
             Node = Node->Prev;
-            return Constit;
+            return it;
         }
 
         /*
@@ -327,18 +287,18 @@ public:
          * @return ノードを返します
         */
         const DATA operator*() const { return Node->Data; }
-
         /*
          * コピ－コンストラクタです
         */
         LinkedList::ConstIterator(const LinkedList::ConstIterator& _constit) : Node(_constit.Node) {}
-
-        ////代入
-        //const LinkedList::ConstIterator operator=(const ConstIterator& _it) {
-        //        LinkedList::ConstIterator NewConst;
-        //        NewConst = _it;
-        //        return NewConst;
-        //}
+        //代入
+        LinkedList::ConstIterator operator=(const Iterator* _it) {
+            if (this != _it) {
+                LinkedList::ConstIterator NewConst;
+                NewConst = _it;
+                return NewConst;
+            }
+        }
 
         /*
          * 比較するオペレータです
@@ -365,7 +325,6 @@ public:
     * @author 吉村括哉
     * @since 2024-10-02
     */
-public:
     class Iterator :
         public ConstIterator
     {
@@ -382,12 +341,11 @@ public:
          * @return 次のノードを取得したイテレータを返します
         */
         LinkedList::Iterator operator++() {
+            LinkedList* List = new LinkedList();
             assert(Node != nullptr && "Iterator points to null!");
-            assert(Node->IsDammy != true && "Iterator points to Dammy!");
-            Node = Node->Next;
-            LinkedList::Iterator it;
-            it.Node = Node;
-            return it;
+            assert(Node->Data.Name != "Dammy" && "Iterator points to Dummy!");
+            this->Node = Node->Next;
+            return *this;
         }
 
         /*
@@ -395,12 +353,13 @@ public:
          * @return 次のノードを取得したイテレータを返します
         */
         LinkedList::Iterator operator++(int) {
+            LinkedList* List = new LinkedList();
             assert(Node != nullptr && "Iterator points to null!");
-            assert(Node->IsDammy != true && "Iterator points to Dammy!");
-                LinkedList::Iterator it;
-                it.Node = Node;
-                Node = Node->Next;
-                return it;
+            assert(Node->Data.Name != "Dammy" && "Iterator points to Dummy!");
+            LinkedList::Iterator it;
+            it.Node = Node;
+            Node = Node->Next;
+            return it;
 
         }
 
@@ -409,12 +368,11 @@ public:
          * @return 前ノードを取得したイテレータを返します
         */
         LinkedList::Iterator operator--() {
+            LinkedList* List = new LinkedList();
             assert(Node != nullptr && "Iterator points to null!");
-            assert(Node->IsDammy != true && "Iterator points to Dammy!");
-            Node = Node->Prev;
-            LinkedList::Iterator it;
-            it.Node = Node;
-            return it;
+            assert(Node->Prev->Data.Name != "Dammy" && "Iterator points to Dummy!");
+            this->Node = Node->Prev;
+            return *this;
         }
 
         /*
@@ -422,8 +380,9 @@ public:
          * @return 前のノードを取得したイテレータを返します
         */
         LinkedList::Iterator operator--(int) {
+            LinkedList* List = new LinkedList();
             assert(Node != nullptr && "Iterator points to null!");
-            assert(Node->IsDammy != true && "Iterator points to Dammy!");
+            assert(Node->Prev->Data.Name != "Dammy" && "Iterator points to Dummy!");
             LinkedList::Iterator it;
             it.Node = Node;
             Node = Node->Prev;
@@ -435,8 +394,9 @@ public:
          * @return イテレータの要素を返します
         */
         DATA operator*() {
+            LinkedList* List = new LinkedList();
             assert(Node != nullptr && "Iterator points to null!");
-            assert(Node->IsDammy !=  true && "Iterator points to Dammy!");
+            assert(Node->Data.Name != "Dammy" && "Iterator points to Dummy!");
             return Node->Data;
         }
 
@@ -455,5 +415,10 @@ public:
         bool operator!=(const LinkedList::Iterator& _it) const {
             return Node != _it.Node;
         }
+
+
     };
+
+private:
+
 };
