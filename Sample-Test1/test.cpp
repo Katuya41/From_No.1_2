@@ -712,8 +712,8 @@ namespace ex01_DataStructure
 			it2--;
 			it2 = it;
 			std::string Res = "Test2";
-			EXPECT_EQ(2, (*it2).Score);
-			EXPECT_EQ(Res, (*it2).Name);
+			EXPECT_EQ(2, (*it2)->Score);
+			EXPECT_EQ(Res, (*it2)->Name);
 		}
 
 		/**********************************************************************************//**
@@ -815,8 +815,8 @@ namespace ex01_DataStructure
 			it = List.GetBegin();
 			it++;
 			std::string Res = "Test1";
-			EXPECT_EQ(10, (*it).Score);
-			EXPECT_EQ(Res, (*it).Name);
+			EXPECT_EQ(10, (*it)->Score);
+			EXPECT_EQ(Res, (*it)->Name);
 		}
 
 		/**********************************************************************************//**
@@ -835,8 +835,8 @@ namespace ex01_DataStructure
 			it = List.GetBegin();
 			++it;
 			std::string Res = "Test1";
-			EXPECT_EQ(10, (*it).Score);
-			EXPECT_EQ(Res, (*it).Name);
+			EXPECT_EQ(10, (*it)->Score);
+			EXPECT_EQ(Res, (*it)->Name);
 		}
 
 		/**********************************************************************************//**
@@ -855,8 +855,8 @@ namespace ex01_DataStructure
 			it = List.GetBegin();
 			it++;
 			std::string Res = "Test1";
-			EXPECT_EQ(10, (*it).Score);
-			EXPECT_EQ(Res, (*it).Name);
+			EXPECT_EQ(10, (*it)->Score);
+			EXPECT_EQ(Res, (*it)->Name);
 		}
 
 		/**********************************************************************************//**
@@ -925,8 +925,8 @@ namespace ex01_DataStructure
 			it--;
 			it--;
 			std::string Res = "Test2";
-			EXPECT_EQ(20, (*it).Score);
-			EXPECT_EQ(Res, (*it).Name);
+			EXPECT_EQ(20, (*it)->Score);
+			EXPECT_EQ(Res, (*it)->Name);
 		}
 
 		/**********************************************************************************//**
@@ -945,12 +945,12 @@ namespace ex01_DataStructure
 			it = List.GetEnd();
 			it--;
 			std::string Res = "Test1";
-			EXPECT_EQ(10, (*it).Score);
-			EXPECT_EQ(Res, (*it).Name);
+			EXPECT_EQ(10, (*it)->Score);
+			EXPECT_EQ(Res, (*it)->Name);
 			--it;
 			Res = "Test2";
-			EXPECT_EQ(20, (*it).Score);
-			EXPECT_EQ(Res, (*it).Name);
+			EXPECT_EQ(20, (*it)->Score);
+			EXPECT_EQ(Res, (*it)->Name);
 		}
 
 		/**********************************************************************************//**
@@ -969,12 +969,12 @@ namespace ex01_DataStructure
 			it = List.GetEnd();
 			it--;
 			std::string Res = "Test1";
-			EXPECT_EQ(10, (*it).Score);
-			EXPECT_EQ(Res, (*it).Name);
+			EXPECT_EQ(10, (*it)->Score);
+			EXPECT_EQ(Res, (*it)->Name);
 			it--;
 			Res = "Test2";
-			EXPECT_EQ(20, (*it).Score);
-			EXPECT_EQ(Res, (*it).Name);
+			EXPECT_EQ(20, (*it)->Score);
+			EXPECT_EQ(Res, (*it)->Name);
 		}
 
 		/**********************************************************************************//**
@@ -992,7 +992,7 @@ namespace ex01_DataStructure
 			LinkedList::ConstIterator constit;
 			constit = List.GetConstBegin();
 			LinkedList::ConstIterator constit2(constit);
-			int num = (*constit2).Score;
+			int num = (*constit2)->Score;
 			EXPECT_EQ(10, num);
 		}
 
@@ -1014,12 +1014,12 @@ namespace ex01_DataStructure
 			it2 = List.GetEnd();
 			it2--;
 			std::string Res = "Test1";
-			EXPECT_EQ(10, (*it2).Score);
-			EXPECT_EQ(Res, (*it2).Name);
+			EXPECT_EQ(10, (*it2)->Score);
+			EXPECT_EQ(Res, (*it2)->Name);
 			it2 = it;
 			Res = "Test2";
-			EXPECT_EQ(20, (*it2).Score);
-			EXPECT_EQ(Res, (*it2).Name);
+			EXPECT_EQ(20, (*it2)->Score);
+			EXPECT_EQ(Res, (*it2)->Name);
 		}
 
 		/**********************************************************************************//**

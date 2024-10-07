@@ -26,7 +26,7 @@ private:
     {
         NODE* Prev = nullptr;     //一個前のノード
         NODE* Next = nullptr;     //次のノード
-        DATA Data;             //データ
+        DATA* Data = nullptr;             //データ
     };
 
     //ダミーノード
@@ -48,7 +48,7 @@ public:
     LinkedList() {
         Dummy = new NODE();
         Dummy->Next = Dummy->Prev = Dummy;
-        Dummy->Data.Name = "Dammy";
+        //Dummy->Data.Name = "Dammy";
     }
     ~LinkedList() {}
 
@@ -56,7 +56,7 @@ public:
      * データ数を返す関数です。
      * 現在のデータ数を返します
      */
-    const int GetDataNum() const { return DataNum; }
+    int GetDataNum() const { return DataNum; }
 
     /**
      * ダミーノードを取得する関数です。
@@ -99,9 +99,9 @@ public:
         {
             //新しいノード作成
             NODE* NewNode = new NODE();
-            DATA Data;
-            Data.Score = _score;
-            Data.Name = _name;
+            DATA* Data = new DATA();
+            Data->Score = _score;
+            Data->Name = _name;
 
             NewNode->Data = Data;
             NewNode->Next = _it.Node;
@@ -242,7 +242,7 @@ public:
          * イテレータのさす要素を取得するオペレータ(const)です
          * @return ノードを返します
         */
-        const DATA operator*() const { return this->Node->Data; }
+        const DATA* operator*() const { return this->Node->Data; }
         /*
          * コピ－コンストラクタです
         */
@@ -299,7 +299,7 @@ public:
         */
         LinkedList::Iterator operator++() {
             assert(Node != nullptr && "Iterator points to null!");
-            assert(Node->Data.Name != "Dammy" && "Iterator points to Dummy!");
+            assert(Node->Data != nullptr && "Iterator points to Dummy!");
             this->Node = Node->Next;
             return *this;
         }
@@ -310,7 +310,7 @@ public:
         */
         LinkedList::Iterator operator++(int) {
             assert(Node != nullptr && "Iterator points to null!");
-            assert(Node->Data.Name != "Dammy" && "Iterator points to Dummy!");
+            assert(Node->Data != nullptr && "Iterator points to Dummy!");
             LinkedList::Iterator it;
             it.Node = Node;
             Node = Node->Next;
@@ -323,7 +323,7 @@ public:
         */
         LinkedList::Iterator operator--() {
             assert(Node != nullptr && "Iterator points to null!");
-            assert(Node->Prev->Data.Name != "Dammy" && "Iterator points to Dummy!");
+            assert(Node->Prev->Data != nullptr && "Iterator points to Dummy!");
             this->Node = Node->Prev;
             return *this;
         }
@@ -334,7 +334,7 @@ public:
         */
         LinkedList::Iterator operator--(int) {
             assert(Node != nullptr && "Iterator points to null!");
-            assert(Node->Prev->Data.Name != "Dammy" && "Iterator points to Dummy!");
+            assert(Node->Prev->Data != nullptr && "Iterator points to Dummy!");
             LinkedList::Iterator it;
             it.Node = Node;
             Node = Node->Prev;
@@ -345,9 +345,9 @@ public:
          * イテレータのさす要素を取得する(非const)関数です。
          * @return イテレータの要素を返します
         */
-        DATA operator*() {
+        DATA* operator*() {
             assert(Node != nullptr && "Iterator points to null!");
-            assert(Node->Data.Name != "Dammy" && "Iterator points to Dummy!");
+            assert(Node->Data != nullptr && "Iterator points to Dummy!");
             return this->Node->Data;
         }
 

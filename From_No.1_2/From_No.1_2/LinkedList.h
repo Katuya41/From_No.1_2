@@ -69,7 +69,7 @@ public:
      * データ数を返す関数です。
      * 現在のデータ数を返します
      */
-    const int GetDataNum() { return DataNum; }
+    int GetDataNum() const { return DataNum; }
 
     /**
     * コンストイテレータを使用してリストに格納する関数です。
