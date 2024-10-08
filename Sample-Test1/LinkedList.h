@@ -26,7 +26,7 @@ private:
     {
         NODE* Prev = nullptr;     //一個前のノード
         NODE* Next = nullptr;     //次のノード
-        DATA* Data = nullptr;             //データ
+        DATA* Data = nullptr;     //データ
     };
 
     //ダミーノード
@@ -37,8 +37,6 @@ private:
 
     friend class Iterator;
     friend class ConstIterator;
-
-    
 
 public:
     /**
@@ -57,34 +55,6 @@ public:
      * 現在のデータ数を返します
      */
     int GetDataNum() const { return DataNum; }
-
-    /**
-     * ダミーノードを取得する関数です。
-     * ダミーノードを返します
-     */
-    NODE* GetDummy() { return Dummy; }
-
-    /*
-    * ダミーノードか調べます
-    * @return ノードがダミーノードかどうかを返します
-    */
-    bool IsDummy(NODE* _node) {
-        if (Dummy == _node)
-            return true;
-        else
-            return false;
-    }
-
-    /*
-         * ダミーノードか調べます
-         * @return ノードがダミーノードかどうかを返します
-        */
-    bool IsDummy(ConstIterator _it) {
-        if (Dummy == _it.Node)
-            return true;
-        else
-            return false;
-    }
 
     /**
     * コンストイテレータを使用してリストに格納する関数です。

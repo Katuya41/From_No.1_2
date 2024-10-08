@@ -37,23 +37,6 @@ private:
     //データの数
     int DataNum = 0;
 
-    /**
-     * ダミーノードを取得する関数です。
-     * ダミーノードを返します
-     */
-    NODE* GetDummy() { return Dummy; }
-
-    /*
-        * ダミーノードか調べます
-         * @return ノードがダミーノードかどうかを返します
-    */
-    bool IsDummy(NODE* _node) {
-        if (Dummy == _node)
-            return true;
-        else
-            return false;
-    }
-
 public:
     /**
      * LinkedListクラスのコンストラクタ。

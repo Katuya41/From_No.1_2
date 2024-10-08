@@ -352,7 +352,7 @@ namespace ex01_DataStructure
 		{
 			LinkedList list;
 			LinkedList::Iterator it = list.GetBegin();
-			EXPECT_EQ(true, list.IsDummy(it));
+			EXPECT_EQ(true, list.GetBegin() == list.GetEnd());
 		}
 
 		/**********************************************************************************//**
@@ -436,7 +436,7 @@ namespace ex01_DataStructure
 			LinkedList list;
 			LinkedList::ConstIterator Constit;
 			Constit = list.GetConstBegin();
-			EXPECT_EQ(true, list.IsDummy(Constit));
+			EXPECT_EQ(true, Constit == list.GetEnd());
 		}
 
 		/**********************************************************************************//**
@@ -521,7 +521,7 @@ namespace ex01_DataStructure
 			LinkedList list;
 			LinkedList::Iterator it;
 			it = list.GetEnd();
-			EXPECT_EQ(true, list.IsDummy(it));
+			EXPECT_EQ(true, it == list.GetBegin());
 		}
 
 		/**********************************************************************************//**
@@ -605,7 +605,7 @@ namespace ex01_DataStructure
 			LinkedList list;
 			LinkedList::ConstIterator Constit;
 			Constit = list.GetConstEnd();
-			EXPECT_EQ(true, list.IsDummy(Constit));
+			EXPECT_EQ(true, Constit == list.GetBegin());
 		}
 
 		/**********************************************************************************//**
